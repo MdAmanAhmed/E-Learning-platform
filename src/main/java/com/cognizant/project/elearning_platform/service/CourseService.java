@@ -5,8 +5,6 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cognizant.project.elearning_platform.dto.CourseDTO;
 import com.cognizant.project.elearning_platform.entity.Course;
