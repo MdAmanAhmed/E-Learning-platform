@@ -8,10 +8,10 @@ import lombok.Data;
 @Data
 public class Submission {
 	@Id
-private int submissionId;
+	private int submissionId;
 	@ManyToOne
-private Assessment assessmentId;
+	private Assessment assessmentId;
 	@ManyToOne
-private Student studentId;
-private int score;
+	private Student studentId;
+	private int score;
 }

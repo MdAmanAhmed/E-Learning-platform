@@ -9,11 +9,11 @@ import lombok.Data;
 @Data
 public class Course {
 	@Id
-private int courseId;
-private String title;
-private String description;
-private String contentURL;
+	private int courseId;
+	private String title;
+	private String description;
+	private String contentURL;
 
-@ManyToOne    //check this it is not bi-directional for now. should make it bi ??
-private Instructor instructorId;
+	@ManyToOne    //check this it is not bi-directional for now. should make it bi ??
+	private Instructor instructorId;
 }

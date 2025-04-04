@@ -9,10 +9,10 @@ import lombok.Data;
 public abstract class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-private int userId;
-private String name;
-private String password;
-private String email;
+	private int userId;
+	private String name;
+	private String password;
+	private String email;
 //@Transient
 //private String role;
 }

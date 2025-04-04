@@ -9,9 +9,9 @@ import lombok.Data;
 @Data
 public class Assessment {
 	@Id
-private int assessmentId;
+	private int assessmentId;
 	@ManyToOne
-private Course courseId;
-private String type;
-private int maxScore;
+	private Course courseId;
+	private String type;
+	private int maxScore;
 }
