@@ -8,4 +8,6 @@ public class AssessmentDTO {
 	private String type;
 	private int maxScore;
 	private Course courseId;
+	
+	
 }
