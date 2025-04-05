@@ -10,4 +10,8 @@ public static class StudentDetailNotFound extends RuntimeException{
 public static class InvalidCourse extends RuntimeException{
 	
 }
+
+public static class AlreadyEnrolled extends RuntimeException{
+	
+}
 }

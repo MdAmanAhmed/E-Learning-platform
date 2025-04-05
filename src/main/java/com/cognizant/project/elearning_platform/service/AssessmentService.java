@@ -10,6 +10,7 @@ import com.cognizant.project.elearning_platform.dto.AssessmentDTO;
 import com.cognizant.project.elearning_platform.entity.Assessment;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.entity.Instructor;
+import com.cognizant.project.elearning_platform.exception.AllException.InvalidCourse;
 import com.cognizant.project.elearning_platform.repository.AssessmentRepository;
 import com.cognizant.project.elearning_platform.repository.CourseRepository;
 @Service
@@ -27,8 +28,8 @@ public class AssessmentService {
 	public AssessmentDTO createAssessment(AssessmentDTO assessmentDTO,int course_id) {
 		Assessment assessment=modelMapper.map(assessmentDTO, Assessment.class);
 		Optional<Course>opt_container=courseRepository.findById(course_id);
-		if(opt_container!=null) {
-			
+		if(!opt_container.isPresent()) {
+			throw new InvalidCourse();
 		}
 		Course course=opt_container.get();
 		assessment.setCourseId(course);
