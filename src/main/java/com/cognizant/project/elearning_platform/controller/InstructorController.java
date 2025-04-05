@@ -10,9 +10,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognizant.project.elearning_platform.dto.AssessmentDTO;
 import com.cognizant.project.elearning_platform.dto.CourseDTO;
 import com.cognizant.project.elearning_platform.dto.InstructorDTO;
+
 import com.cognizant.project.elearning_platform.entity.Course;
+
+import com.cognizant.project.elearning_platform.service.AssessmentService;
+
 import com.cognizant.project.elearning_platform.service.CourseService;
 import com.cognizant.project.elearning_platform.service.InstructorService;
 
@@ -24,6 +29,9 @@ public class InstructorController {
 	@Autowired
 	CourseService courseService;
 	
+	@Autowired
+	AssessmentService assessmentService;
+	
 	@PostMapping("/addInstructor")
 	public ResponseEntity<InstructorDTO> addInstructor(InstructorDTO instructorDTO){
 		return new ResponseEntity<>(instructorService.addInstructor(instructorDTO),HttpStatus.OK);
@@ -34,6 +42,11 @@ public class InstructorController {
 	public ResponseEntity<CourseDTO> addCourse(@PathVariable int instructorId,@RequestBody CourseDTO courseDTO){
 		// @RequestBody accepts only raw data. but not form data... so we need to make sure wether to use it or not
 		return new ResponseEntity<>(courseService.addCourse(courseDTO,instructorId),HttpStatus.OK);
+	}
+	@PostMapping("/createAssessment/{courseId}")
+	public ResponseEntity<AssessmentDTO> createAssessment(@RequestBody AssessmentDTO assessmentDTO,@PathVariable("courseId") int courseId){
+		
+		return new ResponseEntity<>(assessmentService.createAssessment(assessmentDTO,courseId),HttpStatus.OK);
 	}
 
 	
