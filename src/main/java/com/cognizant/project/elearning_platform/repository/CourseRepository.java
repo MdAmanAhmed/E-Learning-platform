@@ -7,5 +7,5 @@ import com.cognizant.project.elearning_platform.entity.Course;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
-	
+	public Course findByCourseIdAndInstructorIdInstructorId(int courseId,int instructorId);
 }
