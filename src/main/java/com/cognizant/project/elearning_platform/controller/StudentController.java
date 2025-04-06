@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.project.elearning_platform.dto.EnrollmentDTO;
 import com.cognizant.project.elearning_platform.dto.StudentDTO;
+import com.cognizant.project.elearning_platform.dto.SubmissionDTO;
 import com.cognizant.project.elearning_platform.service.EnrollmentService;
 import com.cognizant.project.elearning_platform.service.StudentService;
+import com.cognizant.project.elearning_platform.service.SubmissionService;
 
 @RestController
 public class StudentController {
@@ -19,6 +21,11 @@ StudentService studentService;
 	
 	@Autowired
 	EnrollmentService enrollmentService;
+	
+	@Autowired
+	SubmissionService submissionService;
+	
+	
 	@PostMapping("addStudent")
 	public ResponseEntity<StudentDTO> addStudent(StudentDTO studentDTO){
 		return new ResponseEntity<>(studentService.addStudent(studentDTO),HttpStatus.OK);
@@ -28,4 +35,15 @@ StudentService studentService;
 	public ResponseEntity<EnrollmentDTO> enroll(@PathVariable int studentId,@PathVariable int courseId,EnrollmentDTO enrollmentDTO){
 		return new ResponseEntity<>(enrollmentService.enroll(studentId,courseId,enrollmentDTO),HttpStatus.OK);
 	}
+	
+	
+	@PostMapping("/submitAssessment/{studentId}/{assessmentId}")
+	public ResponseEntity<SubmissionDTO> submitAssessment(SubmissionDTO submissionDTO,
+			@PathVariable int studentId,@PathVariable int assessmentId){
+		
+		
+		
+		return new ResponseEntity<>(submissionService.submitAssessment(submissionDTO,studentId,assessmentId),HttpStatus.OK);
+	}
+	
 }

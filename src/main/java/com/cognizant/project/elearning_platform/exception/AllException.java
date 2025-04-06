@@ -14,4 +14,9 @@ public static class InvalidCourse extends RuntimeException{
 public static class AlreadyEnrolled extends RuntimeException{
 	
 }
+
+public static class AssessmentNotFound extends RuntimeException{
+	
+}
+
 }

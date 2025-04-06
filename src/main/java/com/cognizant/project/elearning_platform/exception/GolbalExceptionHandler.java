@@ -13,13 +13,13 @@ public class GolbalExceptionHandler extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(InstructorDetailNotFound.class)
 	public ResponseEntity<String> handleInstructorDetailNotFound(){
-		return new ResponseEntity("Instructor Details Not Found\n REGISTER IF U R NEW USER",HttpStatus.NOT_FOUND);
+		return new ResponseEntity("Instructor Details Not Found\n register if u r new user",HttpStatus.NOT_FOUND);
 	}
 	
 	
 	@ExceptionHandler(StudentDetailNotFound.class)
 	public ResponseEntity<String> handleStudentDetailNotFound(){
-		return new ResponseEntity("Student Details Not Found",HttpStatus.NOT_FOUND);
+		return new ResponseEntity("Student Details Not Found\n Register if u r new user",HttpStatus.NOT_FOUND);
 	}
 	
 	
@@ -31,6 +31,11 @@ public class GolbalExceptionHandler extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(AlreadyEnrolled.class)
 	public ResponseEntity<String> handleAlreadyEnrolled(){
 		return new ResponseEntity<>("User already enrolled in that course",HttpStatus.OK);
+	}
+	
+	@ExceptionHandler(AssessmentNotFound.class)
+	public ResponseEntity<String> assessmentNotFound(){
+		return new ResponseEntity<>("No such Assessment Conducted check assessment id properly",HttpStatus.OK);
 	}
 	
 }
