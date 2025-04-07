@@ -13,13 +13,13 @@ public class GolbalExceptionHandler extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(InstructorDetailNotFound.class)
 	public ResponseEntity<String> handleInstructorDetailNotFound(){
-		return new ResponseEntity("Instructor Details Not Found\n register if u r new user",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Instructor Details Not Found\n register if u r new user",HttpStatus.NOT_FOUND);
 	}
 	
 	
 	@ExceptionHandler(StudentDetailNotFound.class)
 	public ResponseEntity<String> handleStudentDetailNotFound(){
-		return new ResponseEntity("Student Details Not Found\n Register if u r new user",HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Student Details Not Found\n Register if u r new user",HttpStatus.NOT_FOUND);
 	}
 	
 	

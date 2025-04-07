@@ -42,7 +42,7 @@ public class CourseService {
 	}
 	
 	public void deleteCourse(int courseId,int instructorId){
-		Course course=courseRepository.findByCourseIdAndInstructorIdInstructorId(courseId,instructorId);
+		Course course=courseRepository.findByCourseIdAndInstructorIdUserId(courseId,instructorId);
 		if(course==null) {
 			throw new InvalidCourse();
 		}
@@ -51,7 +51,7 @@ public class CourseService {
 	}
 	
 	public CourseDTO updateCourse(int instructorId,int courseId,CourseDTO courseDTO){
-	Course course=courseRepository.findByCourseIdAndInstructorIdInstructorId(courseId,instructorId);
+	Course course=courseRepository.findByCourseIdAndInstructorIdUserId(courseId,instructorId);
 	if(course==null) {
 		throw new InvalidCourse();
 	}
