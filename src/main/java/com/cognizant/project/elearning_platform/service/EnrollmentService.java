@@ -1,5 +1,7 @@
 package com.cognizant.project.elearning_platform.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -48,4 +50,25 @@ if(!studentContainer.isPresent()) {
 	enrollmentRepository.save(enrollment);
 	return modelMapper.map(enrollment, EnrollmentDTO.class);
 }
+
+
+
+public List<Course> viewEnrolled(int studentId) {
+	Optional<Student> container=studentRepository.findById(studentId);
+	if(!container.isPresent()) {
+		throw new StudentDetailNotFound();
+	}
+	Student student=container.get();
+	List<Course> ar=new ArrayList<>();
+	List<Enrollment> enrollList=enrollmentRepository.findByStudentId(student);
+	
+	for(Enrollment enrollment:enrollList) {
+		ar.add(enrollment.getCourseId());
+	}
+	
+	return ar;
+}
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.cognizant.project.elearning_platform.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public class CourseService {
 		return modelMapper.map(course,CourseDTO.class);
 	}
 	
-	public void deleteCourse(int courseId,int instructorId){
+	/*public void deleteCourse(int courseId,int instructorId){
 		Course course=courseRepository.findByCourseIdAndInstructorIdUserId(courseId,instructorId);
 		if(course==null) {
 			throw new InvalidCourse();
@@ -49,7 +50,7 @@ public class CourseService {
 		courseRepository.delete(course);
 		//return new ResponseEntity(course,HttpStatus.OK);
 	}
-	
+	*/
 	public CourseDTO updateCourse(int instructorId,int courseId,CourseDTO courseDTO){
 	Course course=courseRepository.findByCourseIdAndInstructorIdUserId(courseId,instructorId);
 	if(course==null) {
@@ -61,4 +62,39 @@ public class CourseService {
 		courseRepository.save(course);
 	return modelMapper.map(course,CourseDTO.class);
 	}
+	
+	public String removeCourse(int courseId) {
+		Optional<Course> container=courseRepository.findById(courseId);
+		if(!container.isPresent()) {
+			return "sorrry no course";
+		}
+		Course course=container.get();
+		courseRepository.delete(course);
+		return "done bro";
+		
+	}
+	
+	public List<CourseDTO> viewAllCourse(int instructorId){
+		Optional<Instructor> container=instructorRepository.findById(instructorId);
+		if(!container.isPresent()) {
+			throw new InstructorDetailNotFound();
+		}
+		Instructor instructor=container.get();
+		List<Course> courseList=courseRepository.findByInstructorId(instructor);
+		ArrayList<CourseDTO> ret=new ArrayList();
+		for(Course obj:courseList) {
+			ret.add(modelMapper.map(obj, CourseDTO.class));
+		}
+		return ret;
+	}
+
+	public List<CourseDTO> viewAllCourse(){
+		List<Course> courseList=courseRepository.findAll();
+		ArrayList<CourseDTO> ret=new ArrayList();
+		for(Course obj:courseList) {
+			ret.add(modelMapper.map(obj, CourseDTO.class));
+		}
+		return ret;
+	}
+	
 }
