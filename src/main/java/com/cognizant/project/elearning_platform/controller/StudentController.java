@@ -15,6 +15,7 @@ import com.cognizant.project.elearning_platform.dto.EnrollmentDTO;
 import com.cognizant.project.elearning_platform.dto.StudentDTO;
 import com.cognizant.project.elearning_platform.dto.SubmissionDTO;
 import com.cognizant.project.elearning_platform.entity.Course;
+import com.cognizant.project.elearning_platform.entity.Student;
 import com.cognizant.project.elearning_platform.service.CourseService;
 import com.cognizant.project.elearning_platform.service.EnrollmentService;
 import com.cognizant.project.elearning_platform.service.StudentService;
@@ -34,7 +35,7 @@ StudentService studentService;
 	@Autowired
 	CourseService courseService;
 	
-	@PostMapping("addStudent")
+	@PostMapping("/addStudent")
 	public ResponseEntity<StudentDTO> addStudent(StudentDTO studentDTO){
 		return new ResponseEntity<>(studentService.addStudent(studentDTO),HttpStatus.OK);
 	}
@@ -74,5 +75,15 @@ public ResponseEntity<List<CourseDTO>> viewAllCourse(){
 	}
 	
 
+	
+	@PostMapping("/login")
+	public String login(Student student) {
+		
+		return studentService.verify(student);
+	}
+	
+	
+	
+	
 	
 }

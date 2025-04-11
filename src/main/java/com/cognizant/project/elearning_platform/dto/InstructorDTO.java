@@ -20,5 +20,7 @@ public class InstructorDTO {
 	@NotNull(message="role cannot be null")
 	private Role role;
 	@NotBlank(message="salary cant be blank")
+	
 	private String salary;
+	
 }

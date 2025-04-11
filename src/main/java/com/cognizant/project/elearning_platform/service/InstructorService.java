@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cognizant.project.elearning_platform.dto.InstructorDTO;
@@ -18,10 +19,13 @@ public class InstructorService {
 	ModelMapper modelMapper;
 @Autowired
 InstructorRepository instructorRepository ;
+
+BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+
 	public InstructorDTO addInstructor(InstructorDTO instructorDTO){
 		
 		Instructor instructor= modelMapper.map(instructorDTO,Instructor.class);
-		
+		instructor.setPassword(encoder.encode(instructor.getPassword()));
 		instructorRepository.save(instructor);
 		
 		return modelMapper.map(instructor, InstructorDTO.class);

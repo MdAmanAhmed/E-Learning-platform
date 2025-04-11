@@ -26,7 +26,7 @@ public abstract class User {
 	private int userId;
 	@Column(nullable=false,length=50)
 	private String name;
-	@Column(nullable=false,length=50)
+	@Column(nullable=false,length=254)
 	private String password;
 	@Column(nullable=false,length=254)
 	private String email;
