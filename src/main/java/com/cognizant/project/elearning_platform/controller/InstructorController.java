@@ -37,7 +37,7 @@ public class InstructorController {
 	AssessmentService assessmentService;
 	
 	@PostMapping("/addInstructor")
-	public ResponseEntity<InstructorDTO> addInstructor(InstructorDTO instructorDTO){
+	public ResponseEntity<InstructorDTO> addInstructor(@RequestBody InstructorDTO instructorDTO){
 		return new ResponseEntity<>(instructorService.addInstructor(instructorDTO),HttpStatus.OK);
 	}
 	
