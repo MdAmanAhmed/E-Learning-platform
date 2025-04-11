@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 public class InstructorDTO {
-	//private int instructorId;
+	private int userId;
 	@NotBlank(message="give instructor name")
 	private String name;
 	@Size(min=4,message="password should be atleast 4 characters")

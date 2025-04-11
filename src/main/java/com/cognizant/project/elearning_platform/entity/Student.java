@@ -20,7 +20,7 @@ public class Student extends User{
 	@Column(length=50,nullable=false)
 	private String college;
 	@Column(nullable=false)
-	private byte age;
+	private int age;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true,mappedBy="studentId")
 	@JsonIgnore
