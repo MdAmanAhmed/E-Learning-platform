@@ -44,7 +44,7 @@ errors.put(error.getField(), error.getDefaultMessage()) );
  return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 }
 	
-	
+@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<Map<String,String>> handleTypeMismatch(
 			MethodArgumentTypeMismatchException ex){
 		Map<String,String> error=new HashMap<>();
@@ -90,10 +90,10 @@ errors.put(error.getField(), error.getDefaultMessage()) );
 		return new ResponseEntity<>("No such Assessment Conducted check assessment id properly",HttpStatus.OK);
 	}
 	
-	@ExceptionHandler(Exception.class)
+/*	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> handleException(){
 		return new ResponseEntity<>("something went wrong",HttpStatus.OK);
 	}
-	
+	*/
 	
 }
