@@ -5,15 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognizant.project.elearning_platform.dto.CourseDTO;
-import com.cognizant.project.elearning_platform.dto.EnrollmentDTO;
-import com.cognizant.project.elearning_platform.dto.StudentDTO;
-import com.cognizant.project.elearning_platform.dto.SubmissionDTO;
+import com.cognizant.project.elearning_platform.dto.CourseRequestDTO;
+import com.cognizant.project.elearning_platform.dto.CourseResponseDTO;
+import com.cognizant.project.elearning_platform.dto.EnrollmentResponseDTO;
+import com.cognizant.project.elearning_platform.dto.StudentResponseDTO;
+import com.cognizant.project.elearning_platform.dto.SubmissionResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.entity.Student;
 import com.cognizant.project.elearning_platform.service.CourseService;
@@ -21,7 +24,10 @@ import com.cognizant.project.elearning_platform.service.EnrollmentService;
 import com.cognizant.project.elearning_platform.service.StudentService;
 import com.cognizant.project.elearning_platform.service.SubmissionService;
 
+import jakarta.validation.Valid;
+
 @RestController
+@RequestMapping("api/students")
 public class StudentController {
 	@Autowired
 StudentService studentService;
@@ -34,56 +40,40 @@ StudentService studentService;
 	
 	@Autowired
 	CourseService courseService;
-	
-	@PostMapping("/addStudent")
-	public ResponseEntity<StudentDTO> addStudent(StudentDTO studentDTO){
-		return new ResponseEntity<>(studentService.addStudent(studentDTO),HttpStatus.OK);
-	}
-	
-	@PostMapping("/enroll/{studentId}/{courseId}")
-	public ResponseEntity<EnrollmentDTO> enroll(@PathVariable int studentId,@PathVariable int courseId,EnrollmentDTO enrollmentDTO){
-		return new ResponseEntity<>(enrollmentService.enroll(studentId,courseId,enrollmentDTO),HttpStatus.OK);
-	}
-	
-	
-	@PostMapping("/submitAssessment/{studentId}/{assessmentId}")
-	public ResponseEntity<SubmissionDTO> submitAssessment(SubmissionDTO submissionDTO,
-			@PathVariable int studentId,@PathVariable int assessmentId){
-		
-		
 
-		return new ResponseEntity<>(submissionService.submitAssessment(submissionDTO,studentId,assessmentId),HttpStatus.OK);
+	
+	
+	@PreAuthorize("#studentId==authentication.principal.id")
+	@PostMapping("/{studentId}/enroll/{courseId}")
+	public ResponseEntity<EnrollmentResponseDTO> enroll(@PathVariable int studentId,@PathVariable int courseId){
+		return new ResponseEntity<>(enrollmentService.enroll(studentId,courseId),HttpStatus.OK);
 	}
 	
-	@GetMapping("/viewStudent/{studentId}")
-	public ResponseEntity<StudentDTO> viewStudent(@PathVariable int studentId){
+	
+	
+	@PreAuthorize("#studentId==authentication.principal.id")
+	@PostMapping("/{studentId}/submitAssessments/{assessmentId}")
+	public ResponseEntity<SubmissionResponseDTO> submitAssessment(
+			@PathVariable int studentId,@PathVariable int assessmentId){
+		return new ResponseEntity<>(submissionService.submitAssessment(studentId,assessmentId),HttpStatus.OK);
+	}
+	
+	
+	
+	
+	@PreAuthorize("#studentId==authentication.principal.id")
+	@GetMapping("/{studentId}")
+	public ResponseEntity<StudentResponseDTO> viewStudent(@PathVariable int studentId){
 		
 		return new ResponseEntity<>(studentService.viewStudent(studentId),HttpStatus.OK);
 	}
 	
 	
-	@GetMapping("/viewAllCourse")
-public ResponseEntity<List<CourseDTO>> viewAllCourse(){
-		
-		return new ResponseEntity<>(courseService.viewAllCourse(),HttpStatus.OK);
-	}
-	
-	@GetMapping("/viewEnrolled/{studentId}")
-	public ResponseEntity<List<Course>> viewEnrolled(@PathVariable int studentId){
+
+	@PreAuthorize("#studentId==authentication.principal.id")
+	@GetMapping("/{studentId}/enrolled-courses")
+	public ResponseEntity<List<CourseResponseDTO>> viewEnrolled(@PathVariable int studentId){
 		return new ResponseEntity<>(enrollmentService.viewEnrolled(studentId),HttpStatus.OK);
 		
 	}
-	
-
-	
-	@PostMapping("/login")
-	public String login(Student student) {
-		
-		return studentService.verify(student);
-	}
-	
-	
-	
-	
-	
 }

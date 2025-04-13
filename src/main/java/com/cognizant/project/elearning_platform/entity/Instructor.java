@@ -17,8 +17,7 @@ import lombok.Data;
 @Entity
 @Data
 public class Instructor extends User{
-	@Column(nullable=false)
-	private String salary;
+		private int salary;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true,mappedBy="instructorId")
 	@JsonIgnore

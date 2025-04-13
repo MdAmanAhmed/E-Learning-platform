@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.CourseDTO;
+import com.cognizant.project.elearning_platform.dto.CourseRequestDTO;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.entity.Instructor;
 import com.cognizant.project.elearning_platform.exception.AllException.InstructorDetailNotFound;
@@ -43,13 +43,13 @@ public class CourseServiceTest {
     @InjectMocks
     private CourseService courseService;
 
-    private CourseDTO courseDTO;
+    private CourseRequestDTO courseDTO;
     private Course course;
     private Instructor instructor;
 
     @BeforeEach
     public void setUp() {
-        courseDTO = new CourseDTO();
+        courseDTO = new CourseRequestDTO();
         courseDTO.setCourseId(1);
         courseDTO.setTitle("Java Programming");
         courseDTO.setDescription("Learn Java from scratch");
@@ -72,9 +72,9 @@ public class CourseServiceTest {
         when(modelMapper.map(courseDTO, Course.class)).thenReturn(course);
         when(instructorRepository.findById(1)).thenReturn(Optional.of(instructor));
         when(courseRepository.save(any(Course.class))).thenReturn(course);
-        when(modelMapper.map(course, CourseDTO.class)).thenReturn(courseDTO);
+        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseDTO);
 
-        CourseDTO result = courseService.addCourse(courseDTO, 1);
+        CourseRequestDTO result = courseService.addCourse(courseDTO, 1);
 
         assertEquals(courseDTO, result);
     }
@@ -92,9 +92,9 @@ public class CourseServiceTest {
     public void testUpdateCourse_Success() {
         when(courseRepository.findByCourseIdAndInstructorIdUserId(1, 1)).thenReturn(course);
         when(courseRepository.save(any(Course.class))).thenReturn(course);
-        when(modelMapper.map(course, CourseDTO.class)).thenReturn(courseDTO);
+        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseDTO);
 
-        CourseDTO result = courseService.updateCourse(1, 1, courseDTO);
+        CourseRequestDTO result = courseService.updateCourse(1, 1, courseDTO);
 
         assertEquals(courseDTO, result);
     }
@@ -133,9 +133,9 @@ public class CourseServiceTest {
         courseList.add(course);
         when(instructorRepository.findById(1)).thenReturn(Optional.of(instructor));
         when(courseRepository.findByInstructorId(instructor)).thenReturn(courseList);
-        when(modelMapper.map(course, CourseDTO.class)).thenReturn(courseDTO);
+        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseDTO);
 
-        List<CourseDTO> result = courseService.viewAllCourse(1);
+        List<CourseRequestDTO> result = courseService.viewAllCourse(1);
 
         assertEquals(1, result.size());
         assertEquals(courseDTO, result.get(0));
@@ -155,9 +155,9 @@ public class CourseServiceTest {
         List<Course> courseList = new ArrayList<>();
         courseList.add(course);
         when(courseRepository.findAll()).thenReturn(courseList);
-        when(modelMapper.map(course, CourseDTO.class)).thenReturn(courseDTO);
+        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseDTO);
 
-        List<CourseDTO> result = courseService.viewAllCourse();
+        List<CourseRequestDTO> result = courseService.viewAllCourse();
 
         assertEquals(1, result.size());
         assertEquals(courseDTO, result.get(0));

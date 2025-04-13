@@ -11,7 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.cognizant.project.elearning_platform.dto.CourseDTO;
+import com.cognizant.project.elearning_platform.dto.CourseRequestDTO;
+import com.cognizant.project.elearning_platform.dto.CourseResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.entity.Instructor;
 import com.cognizant.project.elearning_platform.exception.AllException.InstructorDetailNotFound;
@@ -30,69 +31,66 @@ public class CourseService {
 	@Autowired
 	InstructorRepository instructorRepository;
 	
-	public CourseDTO addCourse(CourseDTO courseDTO,int instructor_id) {
-		Course course=modelMapper.map(courseDTO,Course.class);
-		Optional<Instructor> opt_container=instructorRepository.findById(instructor_id);
-		if(!opt_container.isPresent()) {
-			throw new InstructorDetailNotFound();
-		}
-		Instructor instructor=opt_container.get();
+	public CourseResponseDTO addCourse(CourseRequestDTO courseRequestDTO,int instructorId) {
+		Course course=modelMapper.map(courseRequestDTO,Course.class);
+		Instructor instructor=instructorRepository.findById(instructorId)
+				.orElseThrow(()->new InstructorDetailNotFound("Instructor with Id "+instructorId+" not found."));
 		course.setInstructorId(instructor);
-		courseRepository.save(course);
-		return modelMapper.map(course,CourseDTO.class);
+		course=courseRepository.save(course);
+		CourseResponseDTO courseResponseDTO=modelMapper.map(course, CourseResponseDTO.class);
+		courseResponseDTO.setInstructorId(course.getInstructorId().getUserId());
+		courseResponseDTO.setInstructorName(course.getInstructorId().getName());
+		
+		return courseResponseDTO;
 	}
 	
-	/*public void deleteCourse(int courseId,int instructorId){
-		Course course=courseRepository.findByCourseIdAndInstructorIdUserId(courseId,instructorId);
-		if(course==null) {
-			throw new InvalidCourse();
-		}
-		courseRepository.delete(course);
-		//return new ResponseEntity(course,HttpStatus.OK);
-	}
-	*/
-	public CourseDTO updateCourse(int instructorId,int courseId,CourseDTO courseDTO){
+	
+	public CourseResponseDTO updateCourse(int instructorId,int courseId,CourseRequestDTO courseRequestDTO){
 	Course course=courseRepository.findByCourseIdAndInstructorIdUserId(courseId,instructorId);
 	if(course==null) {
-		throw new InvalidCourse();
+		throw new InvalidCourse("Course with Id "+courseId+" not found.");
 	}
-		course.setContentURL(courseDTO.getContentURL());
-		course.setTitle(courseDTO.getTitle());
-		course.setDescription(courseDTO.getDescription());
-		courseRepository.save(course);
-	return modelMapper.map(course,CourseDTO.class);
+		course.setContentURL(courseRequestDTO.getContentURL());
+		course.setTitle(courseRequestDTO.getTitle());
+		course.setDescription(courseRequestDTO.getDescription());
+		course=courseRepository.save(course);
+		CourseResponseDTO courseResponseDTO=modelMapper.map(course, CourseResponseDTO.class);
+		courseResponseDTO.setInstructorId(course.getInstructorId().getUserId());
+		courseResponseDTO.setInstructorName(course.getInstructorId().getName());
+		
+		
+	return courseResponseDTO;
+	
 	}
 	
-	public String removeCourse(int courseId) {
-		Optional<Course> container=courseRepository.findById(courseId);
-		if(!container.isPresent()) {
-			return "sorrry no course";
+	
+	public String removeCourse(int courseId,int instructorId) {
+	Course course=courseRepository.findById(courseId).orElseThrow(()->
+	new InvalidCourse("Course with Id "+courseId+" not found."));
+		if(course.getInstructorId().getUserId()!=instructorId) {
+			return "sorry no permission for u";
 		}
-		Course course=container.get();
 		courseRepository.delete(course);
-		return "done bro";
+		return "course removed";
 		
 	}
 	
-	public List<CourseDTO> viewAllCourse(int instructorId){
-		Optional<Instructor> container=instructorRepository.findById(instructorId);
-		if(!container.isPresent()) {
-			throw new InstructorDetailNotFound();
-		}
-		Instructor instructor=container.get();
+	public List<CourseRequestDTO> viewAllCourse(int instructorId){
+		Instructor instructor=instructorRepository.findById(instructorId).orElseThrow(()->
+		new InstructorDetailNotFound("Instructor with Id "+instructorId+" not found."));
 		List<Course> courseList=courseRepository.findByInstructorId(instructor);
-		ArrayList<CourseDTO> ret=new ArrayList();
+		ArrayList<CourseRequestDTO> ret=new ArrayList();
 		for(Course obj:courseList) {
-			ret.add(modelMapper.map(obj, CourseDTO.class));
+			ret.add(modelMapper.map(obj, CourseRequestDTO.class));
 		}
 		return ret;
 	}
 
-	public List<CourseDTO> viewAllCourse(){
+	public List<CourseRequestDTO> viewAllCourse(){
 		List<Course> courseList=courseRepository.findAll();
-		ArrayList<CourseDTO> ret=new ArrayList();
+		ArrayList<CourseRequestDTO> ret=new ArrayList();
 		for(Course obj:courseList) {
-			ret.add(modelMapper.map(obj, CourseDTO.class));
+			ret.add(modelMapper.map(obj, CourseRequestDTO.class));
 		}
 		return ret;
 	}

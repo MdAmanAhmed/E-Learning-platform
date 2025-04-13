@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.SubmissionDTO;
+import com.cognizant.project.elearning_platform.dto.SubmissionRequestDTO;
 import com.cognizant.project.elearning_platform.entity.Assessment;
 import com.cognizant.project.elearning_platform.entity.Student;
 import com.cognizant.project.elearning_platform.entity.Submission;
@@ -44,14 +44,14 @@ public class SubmissionServiceTest {
     @InjectMocks
     private SubmissionService submissionService;
 
-    private SubmissionDTO submissionDTO;
+    private SubmissionRequestDTO submissionDTO;
     private Submission submission;
     private Student student;
     private Assessment assessment;
 
     @BeforeEach
     public void setUp() {
-        submissionDTO = new SubmissionDTO();
+        submissionDTO = new SubmissionRequestDTO();
         submissionDTO.setSubmissionId(1);
         student = new Student();
         student.setUserId(1);
@@ -76,9 +76,9 @@ public class SubmissionServiceTest {
         when(studentRepository.findById(1)).thenReturn(Optional.of(student));
         when(assessmentRepository.findById(1)).thenReturn(Optional.of(assessment));
         when(submissionRepository.save(any(Submission.class))).thenReturn(submission);
-        when(modelMapper.map(submission, SubmissionDTO.class)).thenReturn(submissionDTO);
+        when(modelMapper.map(submission, SubmissionRequestDTO.class)).thenReturn(submissionDTO);
 
-        SubmissionDTO result = submissionService.submitAssessment(submissionDTO, 1, 1);
+        SubmissionRequestDTO result = submissionService.submitAssessment(submissionDTO, 1, 1);
 
         assertEquals(submissionDTO, result);
     }

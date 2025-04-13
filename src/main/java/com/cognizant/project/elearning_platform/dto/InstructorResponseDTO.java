@@ -9,17 +9,16 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class InstructorDTO {
+public class InstructorResponseDTO {
 	private int userId;
-	@NotBlank(message="give instructor name")
+	
 	private String name;
-	@Size(min=4,message="password should be atleast 4 characters")
+	
 	private String password;
-	@Email
+	
 	private String email;
-	@NotNull(message="role cannot be null")
+	
 	private Role role;
-	@NotBlank(message="salary cant be blank")
 	
 	private String salary;
 	

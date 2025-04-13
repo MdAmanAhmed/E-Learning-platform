@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.InstructorDTO;
+import com.cognizant.project.elearning_platform.dto.InstructorResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Instructor;
 import com.cognizant.project.elearning_platform.exception.AllException.InstructorDetailNotFound;
 import com.cognizant.project.elearning_platform.repository.InstructorRepository;
@@ -35,12 +35,12 @@ public class InstructorServiceTest {
     @InjectMocks
     private InstructorService instructorService;
 
-    private InstructorDTO instructorDTO;
+    private InstructorResponseDTO instructorDTO;
     private Instructor instructor;
 
     @BeforeEach
     public void setUp() {
-        instructorDTO = new InstructorDTO();
+        instructorDTO = new InstructorResponseDTO();
         instructorDTO.setUserId(1);
         instructorDTO.setName("Jane Doe");
         instructorDTO.setEmail("jane.doe@example.com");
@@ -57,9 +57,9 @@ public class InstructorServiceTest {
     public void testAddInstructor() {
         when(modelMapper.map(instructorDTO, Instructor.class)).thenReturn(instructor);
         when(instructorRepository.save(any(Instructor.class))).thenReturn(instructor);
-        when(modelMapper.map(instructor, InstructorDTO.class)).thenReturn(instructorDTO);
+        when(modelMapper.map(instructor, InstructorResponseDTO.class)).thenReturn(instructorDTO);
 
-        InstructorDTO result = instructorService.addInstructor(instructorDTO);
+        InstructorResponseDTO result = instructorService.addInstructor(instructorDTO);
 
         assertEquals(instructorDTO, result);
     }
@@ -86,9 +86,9 @@ public class InstructorServiceTest {
     @Test
     public void testViewInstructor_Success() {
         when(instructorRepository.findById(1)).thenReturn(Optional.of(instructor));
-        when(modelMapper.map(instructor, InstructorDTO.class)).thenReturn(instructorDTO);
+        when(modelMapper.map(instructor, InstructorResponseDTO.class)).thenReturn(instructorDTO);
 
-        InstructorDTO result = instructorService.viewInstructor(1);
+        InstructorResponseDTO result = instructorService.viewInstructor(1);
 
         assertEquals(instructorDTO, result);
     }

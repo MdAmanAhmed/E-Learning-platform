@@ -18,9 +18,9 @@ import lombok.Data;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="User",
 uniqueConstraints= {
-		@UniqueConstraint(columnNames= {"email","role"})
+		@UniqueConstraint(columnNames= {"email"})
 		})
-public abstract class User {
+public  class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
