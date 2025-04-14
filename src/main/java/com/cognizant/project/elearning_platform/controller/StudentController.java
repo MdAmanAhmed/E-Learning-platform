@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.project.elearning_platform.dto.CourseDTO;
@@ -35,7 +36,7 @@ StudentService studentService;
 	CourseService courseService;
 	
 	@PostMapping("addStudent")
-	public ResponseEntity<StudentDTO> addStudent(StudentDTO studentDTO){
+	public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO studentDTO){
 		return new ResponseEntity<>(studentService.addStudent(studentDTO),HttpStatus.OK);
 	}
 	
