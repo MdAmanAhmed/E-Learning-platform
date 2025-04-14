@@ -8,7 +8,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cognizant.project.elearning_platform.dto.EnrollmentDTO;
+import com.cognizant.project.elearning_platform.dto.CourseResponseDTO;
+import com.cognizant.project.elearning_platform.dto.EnrollmentResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.entity.Enrollment;
 import com.cognizant.project.elearning_platform.entity.Student;
@@ -29,44 +30,45 @@ StudentRepository studentRepository;
 CourseRepository courseRepository;
 @Autowired
 ModelMapper modelMapper;
-public EnrollmentDTO enroll(int studentId,int courseId,EnrollmentDTO enrollmentDTO) {
+public EnrollmentResponseDTO enroll(int studentId,int courseId) {
 	
-	Enrollment enrollment=modelMapper.map(enrollmentDTO, Enrollment.class);
-Optional<Student> studentContainer=studentRepository.findById(studentId);
-Optional<Course> courseContainer=courseRepository.findById(courseId);
-if(!studentContainer.isPresent()) {
-	throw new StudentDetailNotFound();
-}
-	if(!courseContainer.isPresent()) {
-		throw new InvalidCourse();
-	}
-	Student student=studentContainer.get();
-	Course course=courseContainer.get();
+Student student=studentRepository.findById(studentId).orElseThrow(()->new StudentDetailNotFound("Student with Id "+studentId+" not found."));
+Course course=courseRepository.findById(courseId).orElseThrow(()->new InvalidCourse("Course with Id "+courseId+" not found."));
 	if(!(enrollmentRepository.findByStudentIdAndCourseId(student, course)==null)) {
 		throw new AlreadyEnrolled();	
 		}
+Enrollment enrollment=new Enrollment();
 	enrollment.setStudentId(student);
 	enrollment.setCourseId(course);
-	enrollmentRepository.save(enrollment);
-	return modelMapper.map(enrollment, EnrollmentDTO.class);
+	enrollment=enrollmentRepository.save(enrollment);
+	EnrollmentResponseDTO enrollmentResponseDTO=new EnrollmentResponseDTO();
+	enrollmentResponseDTO.setEnrollmentId(enrollment.getEnrollmentId());
+	enrollmentResponseDTO.setStudentId(enrollment.getStudentId().getUserId());
+	enrollmentResponseDTO.setCourseId(enrollment.getCourseId().getCourseId());
+	enrollmentResponseDTO.setCourseTitle(enrollment.getCourseId().getTitle());
+	enrollmentResponseDTO.setInstructorName(enrollment.getCourseId().getInstructorId().getName());
+	return enrollmentResponseDTO;
 }
 
 
 
-public List<Course> viewEnrolled(int studentId) {
-	Optional<Student> container=studentRepository.findById(studentId);
-	if(!container.isPresent()) {
-		throw new StudentDetailNotFound();
-	}
-	Student student=container.get();
-	List<Course> ar=new ArrayList<>();
+public List<CourseResponseDTO> viewEnrolled(int studentId) {
+Student student=studentRepository.findById(studentId).orElseThrow(()->new StudentDetailNotFound("Student with Id "+studentId+" not found."));
+	List<CourseResponseDTO> courseList=new ArrayList<>();
 	List<Enrollment> enrollList=enrollmentRepository.findByStudentId(student);
-	
+	CourseResponseDTO courseResponseDTO=null;
 	for(Enrollment enrollment:enrollList) {
-		ar.add(enrollment.getCourseId());
+		courseResponseDTO=new CourseResponseDTO();
+		courseResponseDTO.setCourseId(enrollment.getCourseId().getCourseId());
+		courseResponseDTO.setTitle(enrollment.getCourseId().getTitle());
+		courseResponseDTO.setDescription(enrollment.getCourseId().getDescription());
+		courseResponseDTO.setContentURL(enrollment.getCourseId().getContentURL());
+		courseResponseDTO.setInstructorId(enrollment.getCourseId().getInstructorId().getUserId());
+		courseResponseDTO.setInstructorName(enrollment.getCourseId().getInstructorId().getName());
+	courseList.add(courseResponseDTO);
 	}
 	
-	return ar;
+	return courseList;
 }
 
 

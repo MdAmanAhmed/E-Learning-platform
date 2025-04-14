@@ -17,9 +17,8 @@ import lombok.Data;
 @Entity
 @Data
 public class Student extends User{
-	@Column(length=50,nullable=false)
+	@Column(length=50)
 	private String college;
-	@Column(nullable=false)
 	private int age;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true,mappedBy="studentId")

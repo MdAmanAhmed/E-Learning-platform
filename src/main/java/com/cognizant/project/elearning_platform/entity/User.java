@@ -18,15 +18,15 @@ import lombok.Data;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="User",
 uniqueConstraints= {
-		@UniqueConstraint(columnNames= {"email","role"})
+		@UniqueConstraint(columnNames= {"email"})
 		})
-public abstract class User {
+public  class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
 	@Column(nullable=false,length=50)
 	private String name;
-	@Column(nullable=false,length=50)
+	@Column(nullable=false,length=254)
 	private String password;
 	@Column(nullable=false,length=254)
 	private String email;

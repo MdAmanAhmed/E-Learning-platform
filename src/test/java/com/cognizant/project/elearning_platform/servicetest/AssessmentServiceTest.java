@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.AssessmentDTO;
+import com.cognizant.project.elearning_platform.dto.AssessmentRequestDTO;
 import com.cognizant.project.elearning_platform.entity.Assessment;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.exception.AllException.InvalidCourse;
@@ -39,13 +39,13 @@ public class AssessmentServiceTest {
     @InjectMocks
     private AssessmentService assessmentService;
 
-    private AssessmentDTO assessmentDTO;
+    private AssessmentRequestDTO assessmentDTO;
     private Assessment assessment;
     private Course course;
 
     @BeforeEach
     public void setUp() {
-        assessmentDTO = new AssessmentDTO();
+        assessmentDTO = new AssessmentRequestDTO();
         assessmentDTO.setType("Quiz");
         assessmentDTO.setMaxScore(100);
         course = new Course();
@@ -65,9 +65,9 @@ public class AssessmentServiceTest {
         when(modelMapper.map(assessmentDTO, Assessment.class)).thenReturn(assessment);
         when(courseRepository.findById(1)).thenReturn(Optional.of(course));
         when(assessmentRepository.save(any(Assessment.class))).thenReturn(assessment);
-        when(modelMapper.map(assessment, AssessmentDTO.class)).thenReturn(assessmentDTO);
+        when(modelMapper.map(assessment, AssessmentRequestDTO.class)).thenReturn(assessmentDTO);
 
-        AssessmentDTO result = assessmentService.createAssessment(assessmentDTO, 1);
+        AssessmentRequestDTO result = assessmentService.createAssessment(assessmentDTO, 1);
 
         assertEquals(assessmentDTO, result);
     }

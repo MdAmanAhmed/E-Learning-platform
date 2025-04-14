@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.EnrollmentDTO;
+import com.cognizant.project.elearning_platform.dto.EnrollmentResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.entity.Enrollment;
 import com.cognizant.project.elearning_platform.entity.Student;
@@ -47,14 +47,14 @@ public class EnrollmentServiceTest {
     @InjectMocks
     private EnrollmentService enrollmentService;
 
-    private EnrollmentDTO enrollmentDTO;
+    private EnrollmentResponseDTO enrollmentDTO;
     private Enrollment enrollment;
     private Student student;
     private Course course;
 
     @BeforeEach
     public void setUp() {
-        enrollmentDTO = new EnrollmentDTO();
+        enrollmentDTO = new EnrollmentResponseDTO();
         enrollmentDTO.setEnrollmentId(1);
         student = new Student();
         student.setUserId(1);
@@ -80,9 +80,9 @@ public class EnrollmentServiceTest {
         when(courseRepository.findById(1)).thenReturn(Optional.of(course));
         when(enrollmentRepository.findByStudentIdAndCourseId(student, course)).thenReturn(null);
         when(enrollmentRepository.save(any(Enrollment.class))).thenReturn(enrollment);
-        when(modelMapper.map(enrollment, EnrollmentDTO.class)).thenReturn(enrollmentDTO);
+        when(modelMapper.map(enrollment, EnrollmentResponseDTO.class)).thenReturn(enrollmentDTO);
 
-        EnrollmentDTO result = enrollmentService.enroll(1, 1, enrollmentDTO);
+        EnrollmentResponseDTO result = enrollmentService.enroll(1, 1, enrollmentDTO);
 
         assertEquals(enrollmentDTO, result);
     }

@@ -5,9 +5,10 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.cognizant.project.elearning_platform.dto.InstructorDTO;
+import com.cognizant.project.elearning_platform.dto.InstructorResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Instructor;
 import com.cognizant.project.elearning_platform.exception.AllException.InstructorDetailNotFound;
 import com.cognizant.project.elearning_platform.repository.InstructorRepository;
@@ -18,13 +19,16 @@ public class InstructorService {
 	ModelMapper modelMapper;
 @Autowired
 InstructorRepository instructorRepository ;
-	public InstructorDTO addInstructor(InstructorDTO instructorDTO){
+
+BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+
+	public InstructorResponseDTO addInstructor(InstructorResponseDTO instructorDTO){
 		
 		Instructor instructor= modelMapper.map(instructorDTO,Instructor.class);
+		instructor.setPassword(encoder.encode(instructor.getPassword()));
+		instructor=instructorRepository.save(instructor);
 		
-		instructorRepository.save(instructor);
-		
-		return modelMapper.map(instructor, InstructorDTO.class);
+		return modelMapper.map(instructor, InstructorResponseDTO.class);
 	}
 	
 	
@@ -40,14 +44,10 @@ InstructorRepository instructorRepository ;
 	}
 	
 	
-	public InstructorDTO viewInstructor(int instructorId) {
-		Optional<Instructor> container=instructorRepository.findById(instructorId);
-		if(!container.isPresent()) {
-			throw new InstructorDetailNotFound();
-		}
-		Instructor instructor=container.get();
-		
-		return modelMapper.map(instructor,InstructorDTO.class);
+	public InstructorResponseDTO viewInstructor(int instructorId) {
+Instructor instructor=instructorRepository.findById(instructorId).orElseThrow(
+	()->new InstructorDetailNotFound("Instructor with Id "+instructorId+" not found."));
+		return modelMapper.map(instructor,InstructorResponseDTO.class);
 	}
 	
 }

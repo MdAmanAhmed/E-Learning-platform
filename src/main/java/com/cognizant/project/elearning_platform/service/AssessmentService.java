@@ -6,7 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cognizant.project.elearning_platform.dto.AssessmentDTO;
+import com.cognizant.project.elearning_platform.dto.AssessmentRequestDTO;
+import com.cognizant.project.elearning_platform.dto.AssessmentResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Assessment;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.entity.Instructor;
@@ -25,16 +26,25 @@ public class AssessmentService {
 	@Autowired
 	private AssessmentRepository assessmentRepository;
 	
-	public AssessmentDTO createAssessment(AssessmentDTO assessmentDTO,int course_id) {
-		Assessment assessment=modelMapper.map(assessmentDTO, Assessment.class);
-		Optional<Course>opt_container=courseRepository.findById(course_id);
-		if(!opt_container.isPresent()) {
-			throw new InvalidCourse();
-		}
-		Course course=opt_container.get();
+	public AssessmentResponseDTO createAssessment(AssessmentRequestDTO assessmentRequestDTO,int courseId,
+			int instructorId) {
+		Assessment assessment=modelMapper.map(assessmentRequestDTO, Assessment.class);
+Course course=courseRepository.findById(courseId).orElseThrow(
+	()->new InvalidCourse("Course with Id "+courseId+" not found.")
+		);
+/*
+		if(course.getInstructorId().getUserId()!=instructorId) {
+			// throw custom exception like access denied
+		}*/
 		assessment.setCourseId(course);
-		assessmentRepository.save(assessment);
+		assessment=assessmentRepository.save(assessment);
+AssessmentResponseDTO assessmentResponseDTO=modelMapper.map(assessment, AssessmentResponseDTO.class); 
+assessmentResponseDTO.setCourseId(assessment.getCourseId().getCourseId());
+assessmentResponseDTO.setTitle(assessment.getCourseId().getTitle());
+assessmentResponseDTO.setContentURL(assessment.getCourseId().getContentURL());
+assessmentResponseDTO.setInstructorId(assessment.getCourseId().getInstructorId().getUserId());
+assessmentResponseDTO.setInstructorName(assessment.getCourseId().getInstructorId().getName());
 		
-		return modelMapper.map(assessment,AssessmentDTO.class);
+		return assessmentResponseDTO;
 	}
 }
