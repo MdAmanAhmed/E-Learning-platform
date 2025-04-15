@@ -1,6 +1,5 @@
 package com.cognizant.project.elearning_platform.servicetest;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import com.cognizant.project.elearning_platform.dto.CourseRequestDTO;
+import com.cognizant.project.elearning_platform.dto.CourseResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Course;
 import com.cognizant.project.elearning_platform.entity.Instructor;
 import com.cognizant.project.elearning_platform.exception.AllException.InstructorDetailNotFound;
@@ -43,21 +43,21 @@ public class CourseServiceTest {
     @InjectMocks
     private CourseService courseService;
 
-    private CourseRequestDTO courseDTO;
+    private CourseRequestDTO courseRequestDTO;
+    private CourseResponseDTO courseResponseDTO;
     private Course course;
     private Instructor instructor;
 
     @BeforeEach
     public void setUp() {
-        courseDTO = new CourseRequestDTO();
-        courseDTO.setCourseId(1);
-        courseDTO.setTitle("Java Programming");
-        courseDTO.setDescription("Learn Java from scratch");
-        courseDTO.setContentURL("http://example.com/java");
+        courseRequestDTO = new CourseRequestDTO();
+        courseRequestDTO.setTitle("Java Programming");
+        courseRequestDTO.setDescription("Learn Java from scratch");
+        courseRequestDTO.setContentURL("http://example.com/java");
+
         instructor = new Instructor();
         instructor.setUserId(1);
         instructor.setName("John Doe");
-        courseDTO.setInstructorId(instructor);
 
         course = new Course();
         course.setCourseId(1);
@@ -65,18 +65,26 @@ public class CourseServiceTest {
         course.setDescription("Learn Java from scratch");
         course.setContentURL("http://example.com/java");
         course.setInstructorId(instructor);
+
+        courseResponseDTO = new CourseResponseDTO();
+        courseResponseDTO.setCourseId(1);
+        courseResponseDTO.setTitle("Java Programming");
+        courseResponseDTO.setDescription("Learn Java from scratch");
+        courseResponseDTO.setContentURL("http://example.com/java");
+        courseResponseDTO.setInstructorId(1);
+        courseResponseDTO.setInstructorName("John Doe");
     }
 
     @Test
-    public void testAddCourse() {
-        when(modelMapper.map(courseDTO, Course.class)).thenReturn(course);
+    public void testAddCourse_Success() {
+        when(modelMapper.map(courseRequestDTO, Course.class)).thenReturn(course);
         when(instructorRepository.findById(1)).thenReturn(Optional.of(instructor));
         when(courseRepository.save(any(Course.class))).thenReturn(course);
-        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseDTO);
+        when(modelMapper.map(course, CourseResponseDTO.class)).thenReturn(courseResponseDTO);
 
-        CourseRequestDTO result = courseService.addCourse(courseDTO, 1);
+        CourseResponseDTO result = courseService.addCourse(courseRequestDTO, 1);
 
-        assertEquals(courseDTO, result);
+        assertEquals(courseResponseDTO, result);
     }
 
     @Test
@@ -84,7 +92,7 @@ public class CourseServiceTest {
         when(instructorRepository.findById(1)).thenReturn(Optional.empty());
 
         assertThrows(InstructorDetailNotFound.class, () -> {
-            courseService.addCourse(courseDTO, 1);
+            courseService.addCourse(courseRequestDTO, 1);
         });
     }
 
@@ -92,11 +100,11 @@ public class CourseServiceTest {
     public void testUpdateCourse_Success() {
         when(courseRepository.findByCourseIdAndInstructorIdUserId(1, 1)).thenReturn(course);
         when(courseRepository.save(any(Course.class))).thenReturn(course);
-        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseDTO);
+        when(modelMapper.map(course, CourseResponseDTO.class)).thenReturn(courseResponseDTO);
 
-        CourseRequestDTO result = courseService.updateCourse(1, 1, courseDTO);
+        CourseResponseDTO result = courseService.updateCourse(1, 1, courseRequestDTO);
 
-        assertEquals(courseDTO, result);
+        assertEquals(courseResponseDTO, result);
     }
 
     @Test
@@ -104,7 +112,7 @@ public class CourseServiceTest {
         when(courseRepository.findByCourseIdAndInstructorIdUserId(1, 1)).thenReturn(null);
 
         assertThrows(InvalidCourse.class, () -> {
-            courseService.updateCourse(1, 1, courseDTO);
+            courseService.updateCourse(1, 1, courseRequestDTO);
         });
     }
 
@@ -112,19 +120,28 @@ public class CourseServiceTest {
     public void testRemoveCourse_Success() {
         when(courseRepository.findById(1)).thenReturn(Optional.of(course));
 
-        String result = courseService.removeCourse(1);
+        String result = courseService.removeCourse(1, 1);
 
         verify(courseRepository).delete(course);
-        assertEquals("done bro", result);
+        assertEquals("course removed", result);
     }
 
     @Test
     public void testRemoveCourse_NotFound() {
         when(courseRepository.findById(1)).thenReturn(Optional.empty());
 
-        String result = courseService.removeCourse(1);
+        assertThrows(InvalidCourse.class, () -> {
+            courseService.removeCourse(1, 1);
+        });
+    }
 
-        assertEquals("sorrry no course", result);
+    @Test
+    public void testRemoveCourse_NoPermission() {
+        when(courseRepository.findById(1)).thenReturn(Optional.of(course));
+
+        String result = courseService.removeCourse(1, 2);
+
+        assertEquals("sorry no permission for u", result);
     }
 
     @Test
@@ -133,12 +150,12 @@ public class CourseServiceTest {
         courseList.add(course);
         when(instructorRepository.findById(1)).thenReturn(Optional.of(instructor));
         when(courseRepository.findByInstructorId(instructor)).thenReturn(courseList);
-        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseDTO);
+        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseRequestDTO);
 
         List<CourseRequestDTO> result = courseService.viewAllCourse(1);
 
         assertEquals(1, result.size());
-        assertEquals(courseDTO, result.get(0));
+        assertEquals(courseRequestDTO, result.get(0));
     }
 
     @Test
@@ -155,11 +172,11 @@ public class CourseServiceTest {
         List<Course> courseList = new ArrayList<>();
         courseList.add(course);
         when(courseRepository.findAll()).thenReturn(courseList);
-        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseDTO);
+        when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseRequestDTO);
 
         List<CourseRequestDTO> result = courseService.viewAllCourse();
 
         assertEquals(1, result.size());
-        assertEquals(courseDTO, result.get(0));
+        assertEquals(courseRequestDTO, result.get(0));
     }
 }
