@@ -59,7 +59,7 @@ public class AssessmentServiceTest {
         instructor.setUserId(1);
         instructor.setName("John Doe");
         course.setInstructorId(instructor);
-        assessmentRequestDTO.setCourseId(course);
+        //assessmentRequestDTO.setCourseId(course);
 
         assessment = new Assessment();
         assessment.setAssessmentId(1);
