@@ -26,8 +26,7 @@ public class AssessmentService {
 	@Autowired
 	private AssessmentRepository assessmentRepository;
 	
-	public AssessmentResponseDTO createAssessment(AssessmentRequestDTO assessmentRequestDTO,int courseId,
-			int instructorId) {
+	public AssessmentResponseDTO createAssessment(AssessmentRequestDTO assessmentRequestDTO,int courseId) {
 		Assessment assessment=modelMapper.map(assessmentRequestDTO, Assessment.class);
 Course course=courseRepository.findById(courseId).orElseThrow(
 	()->new InvalidCourse("Course with Id "+courseId+" not found.")

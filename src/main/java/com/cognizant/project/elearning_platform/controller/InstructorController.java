@@ -62,11 +62,9 @@ public class InstructorController {
 	
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PostMapping("/{instructorId}/courses/{courseId}/assessments")
-	public ResponseEntity<AssessmentResponseDTO> createAssessment( @Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId,
-			
-			@PathVariable("instructorId") int instructorId){
+	public ResponseEntity<AssessmentResponseDTO> createAssessment( @Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId){
 		
-	return new ResponseEntity<>(assessmentService.createAssessment(assessmentRequestDTO,courseId,instructorId),HttpStatus.OK);
+	return new ResponseEntity<>(assessmentService.createAssessment(assessmentRequestDTO,courseId),HttpStatus.OK);
 	}
 	
 
