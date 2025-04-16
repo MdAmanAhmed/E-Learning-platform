@@ -20,14 +20,14 @@ import com.cognizant.project.elearning_platform.exception.AllException.*;
 public class GolbalExceptionHandler{
 
 	@ExceptionHandler(NoHandlerFoundException.class)
-public ResponseEntity<Map<String,Object>> handleNoHandlerFoundException(NoHandlerFoundException ex){
-	Map<String,Object> error=new HashMap<>();
-	error.put("status",String.valueOf(404)+" (Rrsource Not Found)");
-	error.put("message","The URL you are trying to access doesnt exist");
+	public ResponseEntity<Map<String,Object>> handleNoHandlerFoundException(NoHandlerFoundException ex){
+		Map<String,Object> error=new HashMap<>();
+		error.put("status",String.valueOf(404)+" (Rrsource Not Found)");
+		error.put("message","The URL you are trying to access doesnt exist");
 	//error.put("path",ex.getRequestURL()+" this path doesnt exist");
 	
-	return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
-}
+		return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
+	}
 	
 	
 	@ExceptionHandler( UserNotExist.class)
@@ -36,15 +36,15 @@ public ResponseEntity<Map<String,Object>> handleNoHandlerFoundException(NoHandle
 	}
 	
 	
-@ExceptionHandler(MethodArgumentNotValidException.class)
-public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
- Map<String, String> errors = new HashMap<>();
-ex.getBindingResult().getFieldErrors().forEach(error -> 
-errors.put(error.getField(), error.getDefaultMessage()) );
- return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-}
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
+		Map<String, String> errors = new HashMap<>();
+		ex.getBindingResult().getFieldErrors().forEach(error -> 
+		errors.put(error.getField(), error.getDefaultMessage()) );
+		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+	}
 	
-@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<Map<String,String>> handleTypeMismatch(
 			MethodArgumentTypeMismatchException ex){
 		Map<String,String> error=new HashMap<>();

@@ -1,9 +1,7 @@
 package com.cognizant.project.elearning_platform.servicetest;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -45,7 +43,7 @@ public class StudentServiceTest {
         studentDTO.setName("John Doe");
         studentDTO.setPassword("password123");
         studentDTO.setEmail("john.doe@example.com");
-        studentDTO.setRole(Role.ROLE_STUDENT); // Assuming Role is properly initialized
+        studentDTO.setRole("ROLE_STUDENT");
         studentDTO.setCollege("ABC College");
         studentDTO.setAge(20);
 
@@ -54,21 +52,10 @@ public class StudentServiceTest {
         student.setName("John Doe");
         student.setPassword("password123");
         student.setEmail("john.doe@example.com");
-        student.setRole(Role.ROLE_STUDENT); // Assuming Role is properly initialized
+        student.setRole(Role.ROLE_STUDENT);;
         student.setCollege("ABC College");
         student.setAge(20);
     }
-
- /*   @Test
-    public void testAddStudent() {
-        when(modelMapper.map(studentDTO, Student.class)).thenReturn(student);
-        when(studentRepository.save(any(Student.class))).thenReturn(student);
-        when(modelMapper.map(student, StudentDTO.class)).thenReturn(studentDTO);
-
-        StudentDTO result = studentService.addStudent(studentDTO);
-
-        assertEquals(studentDTO, result);
-    }*/
 
     @Test
     public void testViewStudent_Success() {
