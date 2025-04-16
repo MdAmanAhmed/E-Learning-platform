@@ -15,23 +15,31 @@ import com.cognizant.project.elearning_platform.dto.RegisterResponseDTO;
 import com.cognizant.project.elearning_platform.service.AuthenticationService;
 
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
-	@Autowired
-	AuthenticationService authenticationService;
-	
-	@PostMapping("/register")
-	public ResponseEntity<RegisterResponseDTO> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO){
-return new ResponseEntity<>(authenticationService.register(registerRequestDTO),HttpStatus.OK);
-	
-	}
-	
-	
-	@PostMapping("/login")
-	public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
-return new ResponseEntity<>(authenticationService.login(loginRequestDTO),HttpStatus.OK);
-	}
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+
+    @Autowired
+    AuthenticationService authenticationService;
+
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponseDTO> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
+        logger.info("Entering register method with registerRequestDTO: {}", registerRequestDTO);
+        ResponseEntity<RegisterResponseDTO> response = new ResponseEntity<>(authenticationService.register(registerRequestDTO), HttpStatus.OK);
+        logger.info("Exiting register method with response: {}", response);
+        return response;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
+        logger.info("Entering login method with loginRequestDTO: {}", loginRequestDTO);
+        ResponseEntity<LoginResponseDTO> response = new ResponseEntity<>(authenticationService.login(loginRequestDTO), HttpStatus.OK);
+        logger.info("Exiting login method with response: {}", response);
+        return response;
+    }
 }

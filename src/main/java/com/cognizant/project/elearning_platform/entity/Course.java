@@ -2,10 +2,6 @@ package com.cognizant.project.elearning_platform.entity;
 
 import java.util.List;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -45,5 +41,8 @@ public class Course {
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="courseId",orphanRemoval=true)
 	@JsonIgnore
 	private List<Assessment> assessment;
+	
+	@OneToMany(mappedBy="courseId")
+	private List<Notification> notification;
 	
 }
