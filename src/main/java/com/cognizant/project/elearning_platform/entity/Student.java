@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
@@ -28,6 +29,9 @@ public class Student extends User{
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true,mappedBy="studentId")
 	@JsonIgnore
 	List<Submission> submission;
+	
+	@ManyToMany(mappedBy="studentId")
+	private List<Notification> notification;
 }
 
 

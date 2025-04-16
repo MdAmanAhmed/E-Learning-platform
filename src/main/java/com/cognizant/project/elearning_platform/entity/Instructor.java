@@ -23,6 +23,9 @@ public class Instructor extends User{
 	@JsonIgnore
 	// @JsonManagedReference
 	private List<Course> course;
+	
+	@OneToMany(mappedBy="instructorId")
+	private List<Notification> notification;
 }
 
 

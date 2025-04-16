@@ -46,4 +46,7 @@ public class Course {
 	@JsonIgnore
 	private List<Assessment> assessment;
 	
+	@OneToMany(mappedBy="courseId")
+	private List<Notification> notification;
+	
 }

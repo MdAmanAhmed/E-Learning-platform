@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
@@ -34,4 +35,6 @@ public  class User {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable=false)
 	private Role role;
+	
+	 
 }

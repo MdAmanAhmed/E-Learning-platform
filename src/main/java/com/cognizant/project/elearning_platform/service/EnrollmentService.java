@@ -71,6 +71,14 @@ Student student=studentRepository.findById(studentId).orElseThrow(()->new Studen
 	return courseList;
 }
 
+public List<EnrollmentResponseDTO> enrolledStudents(int courseId){
+	
+	List<Enrollment> el=enrollmentRepository.findByCourseIdCourseId(courseId);
+	List<EnrollmentResponseDTO> res=new ArrayList<>();
+	el.forEach(n->res.add(modelMapper.map(n,EnrollmentResponseDTO.class)));
+	return res;
+}
+
 
 
 }

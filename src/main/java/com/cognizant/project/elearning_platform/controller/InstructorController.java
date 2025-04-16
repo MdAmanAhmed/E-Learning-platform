@@ -20,6 +20,7 @@ import com.cognizant.project.elearning_platform.dto.AssessmentRequestDTO;
 import com.cognizant.project.elearning_platform.dto.AssessmentResponseDTO;
 import com.cognizant.project.elearning_platform.dto.CourseRequestDTO;
 import com.cognizant.project.elearning_platform.dto.CourseResponseDTO;
+import com.cognizant.project.elearning_platform.dto.EnrollmentResponseDTO;
 import com.cognizant.project.elearning_platform.dto.InstructorResponseDTO;
 
 import com.cognizant.project.elearning_platform.entity.Course;
@@ -27,6 +28,7 @@ import com.cognizant.project.elearning_platform.entity.Instructor;
 import com.cognizant.project.elearning_platform.service.AssessmentService;
 
 import com.cognizant.project.elearning_platform.service.CourseService;
+import com.cognizant.project.elearning_platform.service.EnrollmentService;
 import com.cognizant.project.elearning_platform.service.InstructorService;
 
 import jakarta.validation.Valid;
@@ -38,6 +40,8 @@ public class InstructorController {
 	InstructorService instructorService;
 	
 	@Autowired
+	 EnrollmentService  enrollmentService;
+	@Autowired
 	CourseService courseService;
 	
 	@Autowired
@@ -46,15 +50,11 @@ public class InstructorController {
 
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PostMapping("/{instructorId}/courses")
-<<<<<<< HEAD
-	public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid CourseRequestDTO courseRequestDTO){
 
-		return new ResponseEntity<>(courseService.addCourse(courseRequestDTO,instructorId),HttpStatus.OK);
-=======
 	public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid @RequestBody CourseRequestDTO courseDTO){
 
 		return new ResponseEntity<>(courseService.addCourse(courseDTO,instructorId),HttpStatus.OK);
->>>>>>> 3ec22080830f5434eb31c5e1e3b5bf0dc7b7c57b
+
 	}
 	
 	
@@ -105,8 +105,10 @@ return new ResponseEntity<>(courseService.updateCourse(instructorId, courseId, c
 	
 	return new ResponseEntity<>(instructorService.viewInstructor(instructorId),HttpStatus.OK);
 	}
-	
-
-	
+	@PreAuthorize("#instructorId==authentication.principal.id")
+@GetMapping("/{instructorId}/course/{courseId}/enrolls")
+	public ResponseEntity<List<EnrollmentResponseDTO>> enrolledStudents(int courseId){
+		return new ResponseEntity<>(enrollmentService.enrolledStudents(courseId),HttpStatus.OK);
+	}
 	
 }
