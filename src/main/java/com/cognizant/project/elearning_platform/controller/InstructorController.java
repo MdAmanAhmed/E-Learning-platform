@@ -43,9 +43,11 @@ public class InstructorController {
 	@Autowired
 	AssessmentService assessmentService;
 
+
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PostMapping("/{instructorId}/courses")
-	public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid CourseRequestDTO courseDTO){
+	public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid @RequestBody CourseRequestDTO courseDTO){
+
 		return new ResponseEntity<>(courseService.addCourse(courseDTO,instructorId),HttpStatus.OK);
 	}
 	
@@ -54,7 +56,7 @@ public class InstructorController {
 	
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PostMapping("/{instructorId}/courses/{courseId}/assessments")
-	public ResponseEntity<AssessmentResponseDTO> createAssessment( @Valid AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId,
+	public ResponseEntity<AssessmentResponseDTO> createAssessment( @Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId,
 			
 			@PathVariable("instructorId") int instructorId){
 		
@@ -65,7 +67,7 @@ public class InstructorController {
 	
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PutMapping("{instructorId}/courses/{courseId}")
-	public ResponseEntity<CourseResponseDTO> updateCourse(@PathVariable int instructorId,@PathVariable int courseId,@Valid CourseRequestDTO courseRequestDTO){
+	public ResponseEntity<CourseResponseDTO> updateCourse(@PathVariable int instructorId,@PathVariable int courseId,@Valid @RequestBody CourseRequestDTO courseRequestDTO){
 		
 return new ResponseEntity<>(courseService.updateCourse(instructorId, courseId, courseRequestDTO),HttpStatus.ACCEPTED) ;
 

@@ -17,8 +17,8 @@ public class AssessmentRequestDTO {
 	@Min(1)
 	private int maxScore;
 	
-	@NotNull
-	private Course courseId;
+//	@NotNull
+//	private Course courseId;
 	
 	
 }
