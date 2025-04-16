@@ -16,8 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import com.cognizant.project.elearning_platform.dto.AssessmentRequestDTO;
+import com.cognizant.project.elearning_platform.dto.AssessmentResponseDTO;
 import com.cognizant.project.elearning_platform.entity.Assessment;
 import com.cognizant.project.elearning_platform.entity.Course;
+import com.cognizant.project.elearning_platform.entity.Instructor;
 import com.cognizant.project.elearning_platform.exception.AllException.InvalidCourse;
 import com.cognizant.project.elearning_platform.repository.AssessmentRepository;
 import com.cognizant.project.elearning_platform.repository.CourseRepository;
@@ -26,9 +28,8 @@ import com.cognizant.project.elearning_platform.service.AssessmentService;
 @ExtendWith(MockitoExtension.class)
 public class AssessmentServiceTest {
 
-
-	@Mock
-	private ModelMapper modelMapper;
+    @Mock
+    private ModelMapper modelMapper;
 
     @Mock
     private CourseRepository courseRepository;
@@ -39,37 +40,53 @@ public class AssessmentServiceTest {
     @InjectMocks
     private AssessmentService assessmentService;
 
-    private AssessmentRequestDTO assessmentDTO;
-    private Assessment assessment;
+    private AssessmentRequestDTO assessmentRequestDTO;
+    private AssessmentResponseDTO assessmentResponseDTO;
     private Course course;
+    private Instructor instructor;
+    private Assessment assessment;
 
     @BeforeEach
     public void setUp() {
-        assessmentDTO = new AssessmentRequestDTO();
-        assessmentDTO.setType("Quiz");
-        assessmentDTO.setMaxScore(100);
+        assessmentRequestDTO = new AssessmentRequestDTO();
+        assessmentRequestDTO.setType("Quiz");
+        assessmentRequestDTO.setMaxScore(100);
         course = new Course();
         course.setCourseId(1);
         course.setTitle("Java Programming");
-        assessmentDTO.setCourseId(course);
+        course.setContentURL("http://example.com/java");
+        instructor = new Instructor();
+        instructor.setUserId(1);
+        instructor.setName("John Doe");
+        course.setInstructorId(instructor);
+        assessmentRequestDTO.setCourseId(course);
 
         assessment = new Assessment();
         assessment.setAssessmentId(1);
         assessment.setType("Quiz");
         assessment.setMaxScore(100);
         assessment.setCourseId(course);
+
+        assessmentResponseDTO = new AssessmentResponseDTO();
+        assessmentResponseDTO.setType("Quiz");
+        assessmentResponseDTO.setMaxScore(100);
+        assessmentResponseDTO.setCourseId(1);
+        assessmentResponseDTO.setTitle("Java Programming");
+        assessmentResponseDTO.setContentURL("http://example.com/java");
+        assessmentResponseDTO.setInstructorId(1);
+        assessmentResponseDTO.setInstructorName("John Doe");
     }
 
     @Test
     public void testCreateAssessment_Success() {
-        when(modelMapper.map(assessmentDTO, Assessment.class)).thenReturn(assessment);
+        when(modelMapper.map(assessmentRequestDTO, Assessment.class)).thenReturn(assessment);
         when(courseRepository.findById(1)).thenReturn(Optional.of(course));
         when(assessmentRepository.save(any(Assessment.class))).thenReturn(assessment);
-        when(modelMapper.map(assessment, AssessmentRequestDTO.class)).thenReturn(assessmentDTO);
+        when(modelMapper.map(assessment, AssessmentResponseDTO.class)).thenReturn(assessmentResponseDTO);
 
-        AssessmentRequestDTO result = assessmentService.createAssessment(assessmentDTO, 1);
+        AssessmentResponseDTO result = assessmentService.createAssessment(assessmentRequestDTO, 1, 1);
 
-        assertEquals(assessmentDTO, result);
+        assertEquals(assessmentResponseDTO, result);
     }
 
     @Test
@@ -77,7 +94,7 @@ public class AssessmentServiceTest {
         when(courseRepository.findById(1)).thenReturn(Optional.empty());
 
         assertThrows(InvalidCourse.class, () -> {
-            assessmentService.createAssessment(assessmentDTO, 1);
+            assessmentService.createAssessment(assessmentRequestDTO, 1, 1);
         });
     }
 }
