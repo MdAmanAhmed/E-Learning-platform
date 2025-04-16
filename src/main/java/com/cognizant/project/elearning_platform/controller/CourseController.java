@@ -2,6 +2,7 @@ package com.cognizant.project.elearning_platform.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import com.cognizant.project.elearning_platform.service.CourseService;
 @RequestMapping("/api/courses")
 public class CourseController {
 
+	@Autowired
 	CourseService courseService;
 	
 	@GetMapping("/")
