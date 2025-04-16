@@ -45,8 +45,9 @@ public class InstructorController {
 
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PostMapping("/{instructorId}/courses")
-	public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid CourseRequestDTO courseDTO){
-		return new ResponseEntity<>(courseService.addCourse(courseDTO,instructorId),HttpStatus.OK);
+	public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid CourseRequestDTO courseRequestDTO){
+
+		return new ResponseEntity<>(courseService.addCourse(courseRequestDTO,instructorId),HttpStatus.OK);
 	}
 	
 	
