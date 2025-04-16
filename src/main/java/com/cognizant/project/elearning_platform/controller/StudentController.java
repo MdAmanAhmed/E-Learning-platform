@@ -9,20 +9,17 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.RequestBody;
-=======
+//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
->>>>>>> 72df54dcaf045ea0870d7d6814d4587abf8f7543
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cognizant.project.elearning_platform.dto.CourseRequestDTO;
+//import com.cognizant.project.elearning_platform.dto.CourseRequestDTO;
 import com.cognizant.project.elearning_platform.dto.CourseResponseDTO;
 import com.cognizant.project.elearning_platform.dto.EnrollmentResponseDTO;
 import com.cognizant.project.elearning_platform.dto.StudentResponseDTO;
 import com.cognizant.project.elearning_platform.dto.SubmissionResponseDTO;
-import com.cognizant.project.elearning_platform.entity.Course;
-import com.cognizant.project.elearning_platform.entity.Student;
+//import com.cognizant.project.elearning_platform.entity.Course;
+//import com.cognizant.project.elearning_platform.entity.Student;
 import com.cognizant.project.elearning_platform.service.CourseService;
 import com.cognizant.project.elearning_platform.service.EnrollmentService;
 import com.cognizant.project.elearning_platform.service.StudentService;
@@ -31,7 +28,7 @@ import com.cognizant.project.elearning_platform.service.SubmissionService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/students")
+@RequestMapping("/api/students")
 public class StudentController {
 	@Autowired
 StudentService studentService;
@@ -44,26 +41,6 @@ StudentService studentService;
 	
 	@Autowired
 	CourseService courseService;
-<<<<<<< HEAD
-	
-	@PostMapping("addStudent")
-	public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO studentDTO){
-		return new ResponseEntity<>(studentService.addStudent(studentDTO),HttpStatus.OK);
-	}
-	
-	@PostMapping("/enroll/{studentId}/{courseId}")
-	public ResponseEntity<EnrollmentDTO> enroll(@PathVariable int studentId,@PathVariable int courseId,EnrollmentDTO enrollmentDTO){
-		return new ResponseEntity<>(enrollmentService.enroll(studentId,courseId,enrollmentDTO),HttpStatus.OK);
-	}
-	
-	
-	@PostMapping("/submitAssessment/{studentId}/{assessmentId}")
-	public ResponseEntity<SubmissionDTO> submitAssessment(SubmissionDTO submissionDTO,
-			@PathVariable int studentId,@PathVariable int assessmentId){
-		
-		
-=======
->>>>>>> 72df54dcaf045ea0870d7d6814d4587abf8f7543
 
 	
 	

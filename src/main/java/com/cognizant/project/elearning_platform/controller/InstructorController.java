@@ -42,23 +42,12 @@ public class InstructorController {
 	
 	@Autowired
 	AssessmentService assessmentService;
-<<<<<<< HEAD
-	
-	@PostMapping("/addInstructor")
-	public ResponseEntity<InstructorDTO> addInstructor(@RequestBody InstructorDTO instructorDTO){
-		return new ResponseEntity<>(instructorService.addInstructor(instructorDTO),HttpStatus.OK);
-	}
-	
-	
-	@PostMapping("/addCourse/{instructorId}")
-	public ResponseEntity<CourseDTO> addCourse(@PathVariable int instructorId,@RequestBody CourseDTO courseDTO){
-		// @RequestBody accepts only raw data. but not form data... so we need to make sure wether to use it or not
-=======
+
 
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PostMapping("/{instructorId}/courses")
-	public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid CourseRequestDTO courseDTO){
->>>>>>> 72df54dcaf045ea0870d7d6814d4587abf8f7543
+	public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid @RequestBody CourseRequestDTO courseDTO){
+
 		return new ResponseEntity<>(courseService.addCourse(courseDTO,instructorId),HttpStatus.OK);
 	}
 	
@@ -67,7 +56,7 @@ public class InstructorController {
 	
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PostMapping("/{instructorId}/courses/{courseId}/assessments")
-	public ResponseEntity<AssessmentResponseDTO> createAssessment( @Valid AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId,
+	public ResponseEntity<AssessmentResponseDTO> createAssessment( @Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId,
 			
 			@PathVariable("instructorId") int instructorId){
 		
@@ -78,7 +67,7 @@ public class InstructorController {
 	
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PutMapping("{instructorId}/courses/{courseId}")
-	public ResponseEntity<CourseResponseDTO> updateCourse(@PathVariable int instructorId,@PathVariable int courseId,@Valid CourseRequestDTO courseRequestDTO){
+	public ResponseEntity<CourseResponseDTO> updateCourse(@PathVariable int instructorId,@PathVariable int courseId,@Valid @RequestBody CourseRequestDTO courseRequestDTO){
 		
 return new ResponseEntity<>(courseService.updateCourse(instructorId, courseId, courseRequestDTO),HttpStatus.ACCEPTED) ;
 
