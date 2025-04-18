@@ -62,8 +62,9 @@ public class InstructorController {
 	
 	@PreAuthorize("#instructorId==authentication.principal.id")
 	@PostMapping("/{instructorId}/courses/{courseId}/assessments")
-	public ResponseEntity<AssessmentResponseDTO> createAssessment( @Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId){
-		
+	
+	public ResponseEntity<AssessmentResponseDTO> createAssessment(@PathVariable("instructorId") int instructorId,@Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId){
+		System.out.println(assessmentRequestDTO);
 	return new ResponseEntity<>(assessmentService.createAssessment(assessmentRequestDTO,courseId),HttpStatus.OK);
 	}
 	

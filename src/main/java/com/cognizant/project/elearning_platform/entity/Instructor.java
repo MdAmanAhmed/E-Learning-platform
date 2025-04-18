@@ -12,6 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 @Entity
@@ -24,7 +25,7 @@ public class Instructor extends User{
 	// @JsonManagedReference
 	private List<Course> course;
 	
-	@OneToMany(mappedBy="instructorId")
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true,mappedBy="instructorId")
 	private List<Notification> notification;
 }
 

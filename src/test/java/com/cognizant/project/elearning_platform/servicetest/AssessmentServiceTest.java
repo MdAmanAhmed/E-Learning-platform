@@ -84,7 +84,7 @@ public class AssessmentServiceTest {
         when(assessmentRepository.save(any(Assessment.class))).thenReturn(assessment);
         when(modelMapper.map(assessment, AssessmentResponseDTO.class)).thenReturn(assessmentResponseDTO);
 
-        AssessmentResponseDTO result = assessmentService.createAssessment(assessmentRequestDTO, 1, 1);
+        AssessmentResponseDTO result = assessmentService.createAssessment(assessmentRequestDTO,1);
 
         assertEquals(assessmentResponseDTO, result);
     }
@@ -94,7 +94,7 @@ public class AssessmentServiceTest {
         when(courseRepository.findById(1)).thenReturn(Optional.empty());
 
         assertThrows(InvalidCourse.class, () -> {
-            assessmentService.createAssessment(assessmentRequestDTO, 1, 1);
+            assessmentService.createAssessment(assessmentRequestDTO,1);
         });
     }
 }

@@ -46,7 +46,7 @@ public class Course {
 	@JsonIgnore
 	private List<Assessment> assessment;
 	
-	@OneToMany(mappedBy="courseId")
+	@OneToMany(mappedBy="courseId",cascade=CascadeType.ALL)
 	private List<Notification> notification;
 	
 }

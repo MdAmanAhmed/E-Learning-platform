@@ -30,7 +30,7 @@ public class Student extends User{
 	@JsonIgnore
 	List<Submission> submission;
 	
-	@ManyToMany(mappedBy="studentId")
+	@ManyToMany(cascade=CascadeType.ALL,mappedBy="studentId")
 	private List<Notification> notification;
 }
 
