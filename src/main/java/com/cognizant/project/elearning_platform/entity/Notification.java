@@ -22,6 +22,8 @@ public class Notification {
 	private int id;
 		private String description;
 		private LocalDateTime dateTime;
+		
+		
 		@ManyToMany
 @JoinTable(
  name = "temp",

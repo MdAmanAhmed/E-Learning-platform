@@ -52,8 +52,10 @@ public class InstructorController {
 
     @PreAuthorize("#instructorId==authentication.principal.id")
     @PostMapping("/{instructorId}/courses/{courseId}/assessments")
-    public ResponseEntity<AssessmentResponseDTO> createAssessment(@Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO, @PathVariable int courseId){
-        logger.info("Entering createAssessment method with courseId: {}, and assessmentRequestDTO: {}", courseId, assessmentRequestDTO);
+    public ResponseEntity<AssessmentResponseDTO> createAssessment(@Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("instructorId") int instructorId, @PathVariable("courseId") int courseId){
+        System.out.println("this is came in the controller");
+    	
+    	logger.info("Entering createAssessment method with courseId: {}, and assessmentRequestDTO: {}", courseId, assessmentRequestDTO);
         ResponseEntity<AssessmentResponseDTO> response = new ResponseEntity<>(assessmentService.createAssessment(assessmentRequestDTO, courseId), HttpStatus.OK);
         logger.info("Exiting createAssessment method with response: {}", response);
         return response;

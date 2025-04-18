@@ -18,7 +18,7 @@ public class Instructor extends User{
 	// @JsonManagedReference
 	private List<Course> course;
 	
-	@OneToMany(mappedBy="instructorId")
+	@OneToMany(mappedBy="instructorId" ,cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Notification> notification;
 }
 

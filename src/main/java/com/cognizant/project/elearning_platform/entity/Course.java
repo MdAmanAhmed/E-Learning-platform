@@ -42,7 +42,7 @@ public class Course {
 	@JsonIgnore
 	private List<Assessment> assessment;
 	
-	@OneToMany(mappedBy="courseId")
+	@OneToMany(mappedBy="courseId",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Notification> notification;
 	
 }
