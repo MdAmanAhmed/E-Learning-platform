@@ -1,0 +1,41 @@
+2025-04-18T09:54:11.213+05:30  INFO 9248 --- [elearning-platform] [main] c.c.p.e.ElearningPlatformApplication     : Starting ElearningPlatformApplication using Java 21.0.5 with PID 9248 (C:\Users\2395678\Documents\project\target\classes started by 2395678 in C:\Users\2395678\Documents\project)
+2025-04-18T09:54:11.215+05:30  INFO 9248 --- [elearning-platform] [main] c.c.p.e.ElearningPlatformApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-04-18T09:54:12.662+05:30  INFO 9248 --- [elearning-platform] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-18T09:54:12.869+05:30  INFO 9248 --- [elearning-platform] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 178 ms. Found 8 JPA repository interfaces.
+2025-04-18T09:54:14.398+05:30  INFO 9248 --- [elearning-platform] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2025-04-18T09:54:14.430+05:30  INFO 9248 --- [elearning-platform] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-18T09:54:14.431+05:30  INFO 9248 --- [elearning-platform] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-18T09:54:14.571+05:30  INFO 9248 --- [elearning-platform] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-18T09:54:14.571+05:30  INFO 9248 --- [elearning-platform] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3305 ms
+2025-04-18T09:54:14.980+05:30  INFO 9248 --- [elearning-platform] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-18T09:54:15.075+05:30  INFO 9248 --- [elearning-platform] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-04-18T09:54:15.137+05:30  INFO 9248 --- [elearning-platform] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-18T09:54:15.829+05:30  INFO 9248 --- [elearning-platform] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-18T09:54:15.886+05:30  INFO 9248 --- [elearning-platform] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-18T09:54:16.534+05:30  INFO 9248 --- [elearning-platform] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2a9e754e
+2025-04-18T09:54:16.538+05:30  INFO 9248 --- [elearning-platform] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-18T09:54:16.715+05:30  INFO 9248 --- [elearning-platform] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-04-18T09:54:18.411+05:30  INFO 9248 --- [elearning-platform] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-18T09:54:18.575+05:30  INFO 9248 --- [elearning-platform] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-18T09:54:19.413+05:30  INFO 9248 --- [elearning-platform] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-04-18T09:54:19.413+05:30  WARN 9248 --- [elearning-platform] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-04-18T09:54:19.682+05:30  WARN 9248 --- [elearning-platform] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-18T09:54:20.282+05:30  WARN 9248 --- [elearning-platform] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/auth/**, /api/courses/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2025-04-18T09:54:20.951+05:30  INFO 9248 --- [elearning-platform] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2025-04-18T09:54:20.969+05:30  INFO 9248 --- [elearning-platform] [main] c.c.p.e.ElearningPlatformApplication     : Started ElearningPlatformApplication in 10.229 seconds (process running for 10.599)
+2025-04-18T09:54:21.283+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-18T09:54:21.284+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-04-18T09:54:21.286+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-04-18T09:54:21.630+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-2] c.c.p.e.c.AuthenticationController       : Entering register method with registerRequestDTO: RegisterRequestDTO(name=vivek, password=vivek, email=vivek11@example.com, role=ROLE_STUDENT)
+2025-04-18T09:54:22.228+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-2] c.c.p.e.c.AuthenticationController       : Exiting register method with response: <200 OK OK,RegisterResponseDTO(userId=6, name=vivek, password=$2a$12$KpPQo2qx/kWRkNseZ273he/U.u/KOzgNMdH71yPY0J1AP5ijHg/pi, email=vivek11@example.com, role=ROLE_STUDENT),[]>
+2025-04-18T09:58:29.234+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-5] c.c.p.e.c.AuthenticationController       : Entering login method with loginRequestDTO: LoginRequestDTO(email=vivek11@example.com, password=vivek)
+2025-04-18T09:58:30.209+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-5] c.c.p.e.c.AuthenticationController       : Exiting login method with response: <200 OK OK,LoginResponseDTO(userId=6, name=vivek, password=$2a$12$KpPQo2qx/kWRkNseZ273he/U.u/KOzgNMdH71yPY0J1AP5ijHg/pi, email=vivek11@example.com, role=ROLE_STUDENT, token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Niwic3ViIjoidml2ZWsxMUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NDk1MDUxMCwiZXhwIjoxNzQ1MDU4NTEwfQ.EK1FiWx3SM0bFW7NKxGbePaXv8_gqF4yM_8Gml0ueBE),[]>
+2025-04-18T10:00:31.457+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-8] c.c.p.e.c.AuthenticationController       : Entering login method with loginRequestDTO: LoginRequestDTO(email=vivek11@example.com, password=vivek)
+2025-04-18T10:00:31.709+05:30  INFO 9248 --- [elearning-platform] [http-nio-8082-exec-8] c.c.p.e.c.AuthenticationController       : Exiting login method with response: <200 OK OK,LoginResponseDTO(userId=6, name=vivek, password=$2a$12$KpPQo2qx/kWRkNseZ273he/U.u/KOzgNMdH71yPY0J1AP5ijHg/pi, email=vivek11@example.com, role=ROLE_STUDENT, token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Niwic3ViIjoidml2ZWsxMUBleGFtcGxlLmNvbSIsImlhdCI6MTc0NDk1MDYzMSwiZXhwIjoxNzQ1MDU4NjMxfQ.HKXHQGLXodx3XbQ8unnvQggBURAuXgkkHwJ84E3Z0M4),[]>
