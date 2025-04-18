@@ -2,10 +2,6 @@ package com.cognizant.project.elearning_platform.dto;
 
 import com.cognizant.project.elearning_platform.entity.Role;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data

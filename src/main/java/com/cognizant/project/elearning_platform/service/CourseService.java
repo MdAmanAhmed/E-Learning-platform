@@ -112,7 +112,7 @@ students.add(student);
 		Instructor instructor=instructorRepository.findById(instructorId).orElseThrow(()->
 		new InstructorDetailNotFound("Instructor with Id "+instructorId+" not found."));
 		List<Course> courseList=courseRepository.findByInstructorId(instructor);
-		ArrayList<CourseRequestDTO> ret=new ArrayList();
+		ArrayList<CourseRequestDTO> ret=new ArrayList<>();
 		for(Course obj:courseList) {
 			ret.add(modelMapper.map(obj, CourseRequestDTO.class));
 		}
@@ -121,7 +121,7 @@ students.add(student);
 
 	public List<CourseRequestDTO> viewAllCourse(){
 		List<Course> courseList=courseRepository.findAll();
-		ArrayList<CourseRequestDTO> ret=new ArrayList();
+		ArrayList<CourseRequestDTO> ret=new ArrayList<>();
 		for(Course obj:courseList) {
 			ret.add(modelMapper.map(obj, CourseRequestDTO.class));
 		}
