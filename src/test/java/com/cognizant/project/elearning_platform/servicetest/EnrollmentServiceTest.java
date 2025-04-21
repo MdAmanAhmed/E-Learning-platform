@@ -16,18 +16,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.cognizant.project.elearning_platform.dto.EnrollmentResponseDTO;
-import com.cognizant.project.elearning_platform.dto.CourseResponseDTO;
-import com.cognizant.project.elearning_platform.entity.Course;
-import com.cognizant.project.elearning_platform.entity.Enrollment;
-import com.cognizant.project.elearning_platform.entity.Student;
-import com.cognizant.project.elearning_platform.exception.AllException.AlreadyEnrolled;
-import com.cognizant.project.elearning_platform.exception.AllException.InvalidCourse;
-import com.cognizant.project.elearning_platform.exception.AllException.StudentDetailNotFound;
-import com.cognizant.project.elearning_platform.repository.CourseRepository;
-import com.cognizant.project.elearning_platform.repository.EnrollmentRepository;
-import com.cognizant.project.elearning_platform.repository.StudentRepository;
-import com.cognizant.project.elearning_platform.service.EnrollmentService;
+import com.cognizant.project.elearning.dto.CourseResponseDTO;
+import com.cognizant.project.elearning.dto.EnrollmentResponseDTO;
+import com.cognizant.project.elearning.entity.Course;
+import com.cognizant.project.elearning.entity.Enrollment;
+import com.cognizant.project.elearning.entity.Student;
+import com.cognizant.project.elearning.exception.AllException.AlreadyEnrolled;
+import com.cognizant.project.elearning.exception.AllException.InvalidCourse;
+import com.cognizant.project.elearning.exception.AllException.StudentDetailNotFound;
+import com.cognizant.project.elearning.repository.CourseRepository;
+import com.cognizant.project.elearning.repository.EnrollmentRepository;
+import com.cognizant.project.elearning.repository.StudentRepository;
+import com.cognizant.project.elearning.service.EnrollmentService;
 
 @ExtendWith(MockitoExtension.class)
 public class EnrollmentServiceTest {

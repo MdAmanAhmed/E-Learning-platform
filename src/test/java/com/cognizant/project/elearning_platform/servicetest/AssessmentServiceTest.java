@@ -15,15 +15,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.AssessmentRequestDTO;
-import com.cognizant.project.elearning_platform.dto.AssessmentResponseDTO;
-import com.cognizant.project.elearning_platform.entity.Assessment;
-import com.cognizant.project.elearning_platform.entity.Course;
-import com.cognizant.project.elearning_platform.entity.Instructor;
-import com.cognizant.project.elearning_platform.exception.AllException.InvalidCourse;
-import com.cognizant.project.elearning_platform.repository.AssessmentRepository;
-import com.cognizant.project.elearning_platform.repository.CourseRepository;
-import com.cognizant.project.elearning_platform.service.AssessmentService;
+import com.cognizant.project.elearning.dto.AssessmentRequestDTO;
+import com.cognizant.project.elearning.dto.AssessmentResponseDTO;
+import com.cognizant.project.elearning.entity.Assessment;
+import com.cognizant.project.elearning.entity.Course;
+import com.cognizant.project.elearning.entity.Instructor;
+import com.cognizant.project.elearning.exception.AllException.InvalidCourse;
+import com.cognizant.project.elearning.repository.AssessmentRepository;
+import com.cognizant.project.elearning.repository.CourseRepository;
+import com.cognizant.project.elearning.service.AssessmentService;
 
 @ExtendWith(MockitoExtension.class)
 public class AssessmentServiceTest {
