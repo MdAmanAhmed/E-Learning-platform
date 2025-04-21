@@ -41,21 +41,6 @@ public class InstructorController {
     @Autowired
     AssessmentService assessmentService;
 
-<<<<<<< HEAD
-	}
-	
-	
-	
-	
-	@PreAuthorize("#instructorId==authentication.principal.id")
-	@PostMapping("/{instructorId}/courses/{courseId}/assessments")
-	
-	public ResponseEntity<AssessmentResponseDTO> createAssessment(@PathVariable("instructorId") int instructorId,@Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("courseId") int courseId){
-		System.out.println(assessmentRequestDTO);
-	return new ResponseEntity<>(assessmentService.createAssessment(assessmentRequestDTO,courseId),HttpStatus.OK);
-	}
-	
-=======
     @PreAuthorize("#instructorId==authentication.principal.id")
     @PostMapping("/{instructorId}/courses")
     public ResponseEntity<CourseResponseDTO> addCourse(@PathVariable int instructorId, @Valid @RequestBody CourseRequestDTO courseDTO) {
@@ -64,7 +49,6 @@ public class InstructorController {
         logger.info("Exiting addCourse method with response: {}", response);
         return response;
     }
->>>>>>> ccedabb400a2ff4c7a4b2be423a682668a744c03
 
     @PreAuthorize("#instructorId==authentication.principal.id")
     @PostMapping("/{instructorId}/courses/{courseId}/assessments")

@@ -5,14 +5,9 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-<<<<<<< HEAD
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-=======
->>>>>>> ccedabb400a2ff4c7a4b2be423a682668a744c03
+
+
+
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
@@ -26,11 +21,9 @@ public class Instructor extends User{
 	// @JsonManagedReference
 	private List<Course> course;
 	
-<<<<<<< HEAD
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true,mappedBy="instructorId")
-=======
+
 	@OneToMany(mappedBy="instructorId" ,cascade=CascadeType.ALL,orphanRemoval=true)
->>>>>>> ccedabb400a2ff4c7a4b2be423a682668a744c03
+
 	private List<Notification> notification;
 }
 

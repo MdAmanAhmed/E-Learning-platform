@@ -30,11 +30,8 @@ public class Student extends User{
 	@JsonIgnore
 	List<Submission> submission;
 	
-<<<<<<< HEAD
-	@ManyToMany(cascade=CascadeType.ALL,mappedBy="studentId")
-=======
+
 	@ManyToMany(mappedBy="studentId",cascade=CascadeType.ALL)
->>>>>>> ccedabb400a2ff4c7a4b2be423a682668a744c03
 	private List<Notification> notification;
 }
 

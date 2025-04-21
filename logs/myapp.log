@@ -822,3 +822,47 @@ io.jsonwebtoken.security.SignatureException: JWT signature does not match locall
 
 2025-04-18T11:31:17.894+05:30  INFO 19068 --- [elearning-platform] [http-nio-8082-exec-4] c.c.p.e.controller.InstructorController  : Entering removeInstructor method with instructorId: 1
 2025-04-18T11:31:17.948+05:30  INFO 19068 --- [elearning-platform] [http-nio-8082-exec-4] c.c.p.e.controller.InstructorController  : Exiting removeInstructor method with response: <200 OK OK,successful,[]>
+2025-04-18T11:43:47.742+05:30  INFO 964 --- [elearning-platform] [main] c.c.p.e.ElearningPlatformApplication     : Starting ElearningPlatformApplication using Java 21.0.6 with PID 964 (C:\Users\2395787\OneDrive - Cognizant\Desktop\project\cogni_project\E-Learning-platform\target\classes started by 2395787 in C:\Users\2395787\OneDrive - Cognizant\Desktop\project\cogni_project\E-Learning-platform)
+2025-04-18T11:43:47.745+05:30  INFO 964 --- [elearning-platform] [main] c.c.p.e.ElearningPlatformApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-04-18T11:43:49.154+05:30  INFO 964 --- [elearning-platform] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-18T11:43:49.265+05:30  INFO 964 --- [elearning-platform] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 99 ms. Found 8 JPA repository interfaces.
+2025-04-18T11:43:50.066+05:30  INFO 964 --- [elearning-platform] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2025-04-18T11:43:50.083+05:30  INFO 964 --- [elearning-platform] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-18T11:43:50.084+05:30  INFO 964 --- [elearning-platform] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-04-18T11:43:50.163+05:30  INFO 964 --- [elearning-platform] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-18T11:43:50.164+05:30  INFO 964 --- [elearning-platform] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2357 ms
+2025-04-18T11:43:50.422+05:30  INFO 964 --- [elearning-platform] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-18T11:43:50.483+05:30  INFO 964 --- [elearning-platform] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+2025-04-18T11:43:50.525+05:30  INFO 964 --- [elearning-platform] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-18T11:43:50.812+05:30  INFO 964 --- [elearning-platform] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-18T11:43:50.848+05:30  INFO 964 --- [elearning-platform] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-18T11:43:51.287+05:30  INFO 964 --- [elearning-platform] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@416c8bb5
+2025-04-18T11:43:51.290+05:30  INFO 964 --- [elearning-platform] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-18T11:43:51.395+05:30  INFO 964 --- [elearning-platform] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.41
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-04-18T11:43:53.053+05:30  INFO 964 --- [elearning-platform] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-04-18T11:43:53.312+05:30  INFO 964 --- [elearning-platform] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-18T11:43:53.791+05:30  INFO 964 --- [elearning-platform] [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-04-18T11:43:53.791+05:30  WARN 964 --- [elearning-platform] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-04-18T11:43:53.983+05:30  WARN 964 --- [elearning-platform] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-04-18T11:43:54.275+05:30  WARN 964 --- [elearning-platform] [main] thorizationManagerRequestMatcherRegistry : One of the patterns in [api/auth/**, /api/courses/**] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+2025-04-18T11:43:54.641+05:30  INFO 964 --- [elearning-platform] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path '/'
+2025-04-18T11:43:54.650+05:30  INFO 964 --- [elearning-platform] [main] c.c.p.e.ElearningPlatformApplication     : Started ElearningPlatformApplication in 7.478 seconds (process running for 8.616)
+2025-04-18T11:44:01.773+05:30  INFO 964 --- [elearning-platform] [http-nio-8082-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-18T11:44:01.774+05:30  INFO 964 --- [elearning-platform] [http-nio-8082-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-04-18T11:44:01.775+05:30  INFO 964 --- [elearning-platform] [http-nio-8082-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-04-18T11:44:01.973+05:30  INFO 964 --- [elearning-platform] [http-nio-8082-exec-3] c.c.p.e.c.AuthenticationController       : Entering login method with loginRequestDTO: LoginRequestDTO(email=shashi@example.com, password=Shashi123)
+2025-04-18T11:44:03.137+05:30  INFO 964 --- [elearning-platform] [http-nio-8082-exec-3] c.c.p.e.c.AuthenticationController       : Exiting login method with response: <200 OK OK,LoginResponseDTO(userId=6, name=shashi, password=$2a$12$nQ28437M5xccH9dDW0azOuuOoVROWw24UJLqZQCym/z2awpCXP.cC, email=shashi@example.com, role=ROLE_INSTRUCTOR, token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Niwic3ViIjoic2hhc2hpQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ0OTU2ODQzLCJleHAiOjE3NDUwNjQ4NDN9.TuxCvEp4nVnVwLOkz7iZarVa3D6iEX7DbxeUbrAatv8),[]>
+2025-04-18T11:48:47.848+05:30  WARN 964 --- [elearning-platform] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m56s391ms7µs400ns).
+2025-04-18T11:51:42.989+05:30  INFO 964 --- [elearning-platform] [RMI TCP Connection(10)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-04-18T11:51:42.994+05:30  INFO 964 --- [elearning-platform] [RMI TCP Connection(10)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-18T11:51:43.003+05:30  INFO 964 --- [elearning-platform] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-04-18T11:51:43.009+05:30  INFO 964 --- [elearning-platform] [RMI TCP Connection(10)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-18T11:51:43.012+05:30  INFO 964 --- [elearning-platform] [RMI TCP Connection(10)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-04-18T11:51:43.026+05:30  INFO 964 --- [elearning-platform] [RMI TCP Connection(10)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
