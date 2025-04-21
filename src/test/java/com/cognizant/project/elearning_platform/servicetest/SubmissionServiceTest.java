@@ -15,16 +15,16 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.SubmissionResponseDTO;
-import com.cognizant.project.elearning_platform.entity.Assessment;
-import com.cognizant.project.elearning_platform.entity.Student;
-import com.cognizant.project.elearning_platform.entity.Submission;
-import com.cognizant.project.elearning_platform.exception.AllException.AssessmentNotFound;
-import com.cognizant.project.elearning_platform.exception.AllException.StudentDetailNotFound;
-import com.cognizant.project.elearning_platform.repository.AssessmentRepository;
-import com.cognizant.project.elearning_platform.repository.StudentRepository;
-import com.cognizant.project.elearning_platform.repository.SubmissionRepository;
-import com.cognizant.project.elearning_platform.service.SubmissionService;
+import com.cognizant.project.elearning.dto.SubmissionResponseDTO;
+import com.cognizant.project.elearning.entity.Assessment;
+import com.cognizant.project.elearning.entity.Student;
+import com.cognizant.project.elearning.entity.Submission;
+import com.cognizant.project.elearning.exception.AllException.AssessmentNotFound;
+import com.cognizant.project.elearning.exception.AllException.StudentDetailNotFound;
+import com.cognizant.project.elearning.repository.AssessmentRepository;
+import com.cognizant.project.elearning.repository.StudentRepository;
+import com.cognizant.project.elearning.repository.SubmissionRepository;
+import com.cognizant.project.elearning.service.SubmissionService;
 
 @ExtendWith(MockitoExtension.class)
 public class SubmissionServiceTest {

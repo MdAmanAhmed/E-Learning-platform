@@ -14,12 +14,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.StudentResponseDTO;
-import com.cognizant.project.elearning_platform.entity.Role;
-import com.cognizant.project.elearning_platform.entity.Student;
-import com.cognizant.project.elearning_platform.exception.AllException.StudentDetailNotFound;
-import com.cognizant.project.elearning_platform.repository.StudentRepository;
-import com.cognizant.project.elearning_platform.service.StudentService;
+import com.cognizant.project.elearning.dto.StudentResponseDTO;
+import com.cognizant.project.elearning.entity.Role;
+import com.cognizant.project.elearning.entity.Student;
+import com.cognizant.project.elearning.exception.AllException.StudentDetailNotFound;
+import com.cognizant.project.elearning.repository.StudentRepository;
+import com.cognizant.project.elearning.service.StudentService;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceTest {

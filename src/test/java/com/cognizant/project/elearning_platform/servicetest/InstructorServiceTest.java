@@ -16,11 +16,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import com.cognizant.project.elearning_platform.dto.InstructorResponseDTO;
-import com.cognizant.project.elearning_platform.entity.Instructor;
-import com.cognizant.project.elearning_platform.exception.AllException.InstructorDetailNotFound;
-import com.cognizant.project.elearning_platform.repository.InstructorRepository;
-import com.cognizant.project.elearning_platform.service.InstructorService;
+import com.cognizant.project.elearning.dto.InstructorResponseDTO;
+import com.cognizant.project.elearning.entity.Instructor;
+import com.cognizant.project.elearning.exception.AllException.InstructorDetailNotFound;
+import com.cognizant.project.elearning.repository.InstructorRepository;
+import com.cognizant.project.elearning.service.InstructorService;
 
 @ExtendWith(MockitoExtension.class)
 public class InstructorServiceTest {
