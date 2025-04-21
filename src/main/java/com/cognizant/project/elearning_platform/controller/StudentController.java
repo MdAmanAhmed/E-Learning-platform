@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,10 +20,13 @@ import com.cognizant.project.elearning_platform.dto.CourseResponseDTO;
 import com.cognizant.project.elearning_platform.dto.EnrollmentResponseDTO;
 import com.cognizant.project.elearning_platform.dto.StudentResponseDTO;
 import com.cognizant.project.elearning_platform.dto.SubmissionResponseDTO;
+import com.cognizant.project.elearning_platform.dto.UpdateStudentDetailsDTO;
 import com.cognizant.project.elearning_platform.service.CourseService;
 import com.cognizant.project.elearning_platform.service.EnrollmentService;
 import com.cognizant.project.elearning_platform.service.StudentService;
 import com.cognizant.project.elearning_platform.service.SubmissionService;
+
+import jakarta.validation.Valid;
 
 //import jakarta.validation.Valid;
 
@@ -82,5 +87,14 @@ public class StudentController {
         logger.info("Exiting viewEnrolled method with response: {}", response);
         return response;
 
+    }
+    
+    @PreAuthorize("#studentId == authentication.principal.id")
+    @PutMapping("/{studentId}/updateDetails")
+    public ResponseEntity<StudentResponseDTO> updateStudentDetails(@PathVariable int studentId,
+            @RequestBody @Valid UpdateStudentDetailsDTO request) {
+        StudentResponseDTO updatedStudent = studentService.updateStudentDetails(studentId, request.getCollege(),
+                request.getAge());
+        return ResponseEntity.ok(updatedStudent);
     }
 }

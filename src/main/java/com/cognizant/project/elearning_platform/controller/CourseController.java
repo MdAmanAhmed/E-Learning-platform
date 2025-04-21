@@ -37,7 +37,8 @@ public class CourseController {
     @GetMapping("/instructor/{instructorId}")
     public ResponseEntity<List<CourseRequestDTO>> viewAllCourse(@PathVariable int instructorId) {
         logger.info("Entering viewAllCourse method with instructorId: {}", instructorId);
-        ResponseEntity<List<CourseRequestDTO>> response = new ResponseEntity<>(courseService.viewAllCourse(instructorId), HttpStatus.OK);
+        ResponseEntity<List<CourseRequestDTO>> response = new ResponseEntity<>
+        (courseService.viewAllCourse(instructorId), HttpStatus.OK);
         logger.info("Exiting viewAllCourse method with response: {}", response);
         return response;
     }

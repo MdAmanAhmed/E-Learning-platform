@@ -24,6 +24,6 @@ public class RegisterRequestDTO {
 	@Email
 //@Pattern(regexp="^[a-z][a-z0-9]*@gmail\\.com",message="invalid email")
 	private String email;
-@NotNull
+	@NotNull
 	private Role role;
 }

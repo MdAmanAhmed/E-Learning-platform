@@ -2,7 +2,7 @@ package com.cognizant.project.elearning_platform.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
@@ -17,8 +17,9 @@ public class Instructor extends User{
 		private int salary;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true,mappedBy="instructorId")
-	@JsonIgnore
-	// @JsonManagedReference
+//	@JsonIgnore(if Entity class is directly displayed in Json at postman )
+	//instead we used separate response DTO it avoid recursion.
+
 	private List<Course> course;
 	
 
@@ -26,25 +27,6 @@ public class Instructor extends User{
 
 	private List<Notification> notification;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

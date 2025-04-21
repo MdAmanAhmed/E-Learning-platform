@@ -67,7 +67,8 @@ public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
 	User user=userRepository.findByEmail(loginRequestDTO.getEmail())
 			.orElseThrow(()->new  UserNotExist("User with Email "+loginRequestDTO.getEmail()+" didnt exist"));
 	LoginResponseDTO loginResponseDTO=modelMapper.map(user, LoginResponseDTO.class);
-	Authentication authentication=authenticationManager.authenticate(
+	Authentication authentication=
+			authenticationManager.authenticate(
 			new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(),loginRequestDTO.getPassword()));
 	if(authentication.isAuthenticated()) {
 	loginResponseDTO.setToken( jwtService.generateToken(user));

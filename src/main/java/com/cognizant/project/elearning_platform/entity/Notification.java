@@ -25,11 +25,11 @@ public class Notification {
 		
 		
 		@ManyToMany
-@JoinTable(
- name = "temp",
-joinColumns = @JoinColumn(name = "notification_id"),
-inverseJoinColumns = @JoinColumn(name = "student_id")
-)
+		@JoinTable(
+		 name = "temp",
+		joinColumns = @JoinColumn(name = "notification_id"),
+		inverseJoinColumns = @JoinColumn(name = "student_id")
+													)
 		private List<Student> studentId;
 		@ManyToOne
 		@JoinColumn(name="InstructorId")

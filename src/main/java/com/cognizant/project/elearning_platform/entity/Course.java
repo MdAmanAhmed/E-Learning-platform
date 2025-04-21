@@ -39,7 +39,7 @@ public class Course {
 	private List<Enrollment> enrollment;
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="courseId",orphanRemoval=true)
-	@JsonIgnore
+	//@JsonIgnore
 	private List<Assessment> assessment;
 	
 	@OneToMany(mappedBy="courseId",cascade=CascadeType.ALL,orphanRemoval=true)
