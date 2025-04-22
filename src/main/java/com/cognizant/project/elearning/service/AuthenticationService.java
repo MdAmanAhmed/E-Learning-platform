@@ -15,6 +15,8 @@ import com.cognizant.project.elearning.dto.RegisterResponseDTO;
 import com.cognizant.project.elearning.entity.Instructor;
 import com.cognizant.project.elearning.entity.Student;
 import com.cognizant.project.elearning.entity.User;
+import com.cognizant.project.elearning.exception.UserDetailMismatch;
+import com.cognizant.project.elearning.exception.AllException.EmailAlreadyRegistered;
 import com.cognizant.project.elearning.exception.AllException.StudentDetailNotFound;
 import com.cognizant.project.elearning.exception.AllException.UserNotExist;
 import com.cognizant.project.elearning.repository.InstructorRepository;
@@ -45,7 +47,11 @@ public class AuthenticationService {
 public RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO) {
 	User user=modelMapper.map(registerRequestDTO,User.class);
 	user.setPassword(encoder.encode(user.getPassword()));
-	User saveduser=null;
+	
+	User saveduser=userRepository.findByEmail(user.getEmail()).orElse(null);
+	if(saveduser!=null) {
+		throw new EmailAlreadyRegistered();
+	}
 	if(user.getRole().name().equals("ROLE_STUDENT")) {
 		saveduser=studentRepository.save(modelMapper.map(user, Student.class));
 	}
@@ -65,19 +71,23 @@ public RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO) {
 
 
 public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
+	
 	User user=userRepository.findByEmail(loginRequestDTO.getEmail())
 			.orElseThrow(()->new  UserNotExist("User with Email "+loginRequestDTO.getEmail()+" didnt exist"));
 	LoginResponseDTO loginResponseDTO=modelMapper.map(user, LoginResponseDTO.class);
+	
+	try {
 	Authentication authentication=
 			authenticationManager.authenticate(
 			new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(),loginRequestDTO.getPassword()));
-	if(authentication.isAuthenticated()) {
-	loginResponseDTO.setToken( jwtService.generateToken(user));
 	}
-	return loginResponseDTO;
-	
+	catch(Exception e) {
+		throw new UserDetailMismatch();
+	}
+	loginResponseDTO.setToken( jwtService.generateToken(user));
 
 	
+	return loginResponseDTO;
 }
 
 

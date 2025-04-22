@@ -33,6 +33,12 @@ public static class UserNotExist extends RuntimeException{
 }
 
 
+public static class EmailAlreadyRegistered extends RuntimeException{
+	
+}
+public static class TokenMismatch extends RuntimeException{
+	
+}
 
 
 }

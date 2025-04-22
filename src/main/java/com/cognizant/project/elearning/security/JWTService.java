@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.cognizant.project.elearning.entity.User;
+import com.cognizant.project.elearning.exception.AllException.TokenMismatch;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -77,7 +78,10 @@ public class JWTService {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+     
+       boolean b=(userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+      
+       return b;
     }
 
     private boolean isTokenExpired(String token) {
