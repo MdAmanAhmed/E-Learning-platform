@@ -14,6 +14,8 @@ import com.cognizant.project.elearning.dto.RegisterResponseDTO;
 import com.cognizant.project.elearning.entity.Instructor;
 import com.cognizant.project.elearning.entity.Student;
 import com.cognizant.project.elearning.entity.User;
+import com.cognizant.project.elearning.exception.UserDetailMismatch;
+import com.cognizant.project.elearning.exception.AllException.EmailAlreadyRegistered;
 import com.cognizant.project.elearning.exception.AllException.UserNotExist;
 import com.cognizant.project.elearning.repository.InstructorRepository;
 import com.cognizant.project.elearning.repository.StudentRepository;
@@ -39,11 +41,14 @@ public class AuthenticationService {
 	AuthenticationManager authenticationManager ;
 
 	BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
-	
 	public RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO) {
 		User user=modelMapper.map(registerRequestDTO,User.class);
 		user.setPassword(encoder.encode(user.getPassword()));
-		User saveduser=null;
+		
+		User saveduser=userRepository.findByEmail(user.getEmail()).orElse(null);
+		if(saveduser!=null) {
+			throw new EmailAlreadyRegistered();
+		}
 		if(user.getRole().name().equals("ROLE_STUDENT")) {
 			saveduser=studentRepository.save(modelMapper.map(user, Student.class));
 		}
@@ -52,25 +57,30 @@ public class AuthenticationService {
 		}
 		else
 		{
+		//throw some exception later
 		throw	new  UserNotExist("User with Role "+user.getRole().name()+" didnt exist");
 		}
 		
 		return modelMapper.map(saveduser, RegisterResponseDTO.class);
 	
 	}
-	
 	public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
-	
+		
 		User user=userRepository.findByEmail(loginRequestDTO.getEmail())
 				.orElseThrow(()->new  UserNotExist("User with Email "+loginRequestDTO.getEmail()+" didnt exist"));
 		LoginResponseDTO loginResponseDTO=modelMapper.map(user, LoginResponseDTO.class);
-		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(),loginRequestDTO.getPassword()));
-	
+		
+		try {
+			authenticationManager.authenticate(
+			new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(),loginRequestDTO.getPassword()));
+		}
+		catch(Exception e) {
+			throw new UserDetailMismatch();
+		}
 		loginResponseDTO.setToken( jwtService.generateToken(user));
-		return loginResponseDTO;
 	
 		
+		return loginResponseDTO;
 	}
 
 }

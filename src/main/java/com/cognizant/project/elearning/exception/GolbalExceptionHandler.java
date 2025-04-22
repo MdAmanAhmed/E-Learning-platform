@@ -22,6 +22,7 @@ public class GolbalExceptionHandler{
 		Map<String,Object> error=new HashMap<>();
 		error.put("status",String.valueOf(404)+" (Resource Not Found)");
 		error.put("message","The URL you are trying to access doesnt exist");
+
 		return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
 	}
 	
@@ -82,8 +83,25 @@ public class GolbalExceptionHandler{
 		return new ResponseEntity<>("No such Assessment Conducted check assessment id properly",HttpStatus.OK);
 	}
 	
-	@ExceptionHandler(TokenInvalid.class)
-	public ResponseEntity<String> TokenInvalid(){
-		return new ResponseEntity<>("InvalidToken check the token",HttpStatus.BAD_REQUEST);
+
+	@ExceptionHandler(EmailAlreadyRegistered.class)
+	public ResponseEntity<String> handleEmailAlreadyRegistered(){
+		String message = "The email address you entered is already registered. Please use a different email address or log in.";
+		return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(UserDetailMismatch.class)
+	public ResponseEntity<String> handleUserDetailMismatch(){
+		String message = "User details are incorect. Check your email and password";
+		return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(TokenMismatch.class)
+	public ResponseEntity<String> handleTokenMismatch(){
+		String message = "Enter correct Token";
+		return new ResponseEntity<>(message,HttpStatus.FORBIDDEN);
+	}
+	
+
 }
+

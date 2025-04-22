@@ -6,13 +6,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import com.cognizant.project.elearning.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -75,7 +72,10 @@ public class JWTService {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+     
+       boolean b=(userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+      
+       return b;
     }
 
     private boolean isTokenExpired(String token) {

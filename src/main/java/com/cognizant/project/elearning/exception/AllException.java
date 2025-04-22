@@ -21,16 +21,16 @@ public class AllException {
 	}
 	public static class AssessmentNotFound extends RuntimeException{
 	
-		
 	}
 	public static class UserNotExist extends RuntimeException{
-	
 		public UserNotExist(String msg){
 			 super(msg);
 		 }
 	}
-	public static class TokenInvalid extends RuntimeException{
-	
+	public static class EmailAlreadyRegistered extends RuntimeException{
+		
+	}
+	public static class TokenMismatch extends RuntimeException{
 		
 	}
 }
