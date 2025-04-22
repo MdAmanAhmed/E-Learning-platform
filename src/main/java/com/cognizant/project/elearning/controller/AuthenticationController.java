@@ -15,8 +15,7 @@ import com.cognizant.project.elearning.dto.RegisterResponseDTO;
 import com.cognizant.project.elearning.service.AuthenticationService;
 
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 @RestController
 @RequestMapping("/api/auth")

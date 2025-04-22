@@ -27,11 +27,6 @@ import com.cognizant.project.elearning.service.SubmissionService;
 
 import jakarta.validation.Valid;
 
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {

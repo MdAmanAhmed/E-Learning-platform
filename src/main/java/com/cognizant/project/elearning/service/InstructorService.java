@@ -15,12 +15,12 @@ import com.cognizant.project.elearning.repository.InstructorRepository;
 
 @Service
 public class InstructorService {
-@Autowired
+	@Autowired
 	ModelMapper modelMapper;
-@Autowired
-InstructorRepository instructorRepository ;
+	@Autowired
+	InstructorRepository instructorRepository ;
 
-BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+	BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 
 	public InstructorResponseDTO addInstructor(InstructorResponseDTO instructorDTO){
 		
@@ -45,8 +45,8 @@ BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
 	
 	
 	public InstructorResponseDTO viewInstructor(int instructorId) {
-Instructor instructor=instructorRepository.findById(instructorId).orElseThrow(
-	()->new InstructorDetailNotFound("Instructor with Id "+instructorId+" not found."));
+		Instructor instructor=instructorRepository.findById(instructorId).orElseThrow(
+					()->new InstructorDetailNotFound("Instructor with Id "+instructorId+" not found."));
 		return modelMapper.map(instructor,InstructorResponseDTO.class);
 	}
 	

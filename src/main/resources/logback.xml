@@ -9,7 +9,7 @@
 
     <!-- File Appender for general logs -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>C:/Users/2395678/Documents/project/logs/mylog.log</file>
+        <file>C:/Users/2395787/OneDrive - Cognizant/Desktop/project/cogni_project/E-Learning-platform/logs/mylog.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -17,7 +17,7 @@
 
     <!-- File Appender for error logs -->
     <appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>C:/Users/2395678/Documents/project/logs/error.log</file>
+        <file>C:/Users/2395787/OneDrive - Cognizant/Desktop/project/cogni_project/E-Learning-platform/logs/error.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
         </encoder>

@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
@@ -17,10 +16,7 @@ import lombok.Data;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="User",
-uniqueConstraints= {
-		@UniqueConstraint(columnNames= {"email"})
-		})
+@Table(name="User", uniqueConstraints= {@UniqueConstraint(columnNames= {"email"})})
 public  class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

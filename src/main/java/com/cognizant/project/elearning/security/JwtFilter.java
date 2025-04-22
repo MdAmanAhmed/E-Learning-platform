@@ -1,18 +1,19 @@
 package com.cognizant.project.elearning.security;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-//import com.cognizant.project.elearning.service.JWTService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,7 +38,15 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
+            try {
             username = jwtService.extractUserName(token);
+            }catch(Exception e) {
+            	String body = "{\"message\": \"Request blocked by filter\"}";
+                
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+                response.getOutputStream().write(body.getBytes(StandardCharsets.UTF_8));
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

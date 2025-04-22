@@ -20,23 +20,22 @@ public class Notification {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-		private String description;
-		private LocalDateTime dateTime;
-		
-		
-		@ManyToMany
-		@JoinTable(
-		 name = "temp",
-		joinColumns = @JoinColumn(name = "notification_id"),
-		inverseJoinColumns = @JoinColumn(name = "student_id")
-													)
-		private List<Student> studentId;
-		@ManyToOne
-		@JoinColumn(name="InstructorId")
-		private Instructor instructorId;
-		@ManyToOne
-		@JoinColumn(name="courseId")
-		private Course courseId;
+	private String description;
+	private LocalDateTime dateTime;
+
+	@ManyToMany
+	@JoinTable(
+	name = "notified_students",
+	joinColumns = @JoinColumn(name = "notification_id"),
+	inverseJoinColumns = @JoinColumn(name = "student_id")
+												)
+	private List<Student> studentId;
+	@ManyToOne
+	@JoinColumn(name="InstructorId")
+	private Instructor instructorId;
+	@ManyToOne
+	@JoinColumn(name="courseId")
+	private Course courseId;
 		
 		
 }

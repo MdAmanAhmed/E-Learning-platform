@@ -17,7 +17,6 @@ import lombok.Data;
 
 @Entity
 @Data
-//@Table
 public class Course {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,15 +30,12 @@ public class Course {
 
 	@ManyToOne 
 	@JoinColumn(name="instructorId")
-	//@JsonBackReference
 	private Instructor instructorId;
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="courseId",orphanRemoval=true)
-	@JsonIgnore
 	private List<Enrollment> enrollment;
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="courseId",orphanRemoval=true)
-	//@JsonIgnore
 	private List<Assessment> assessment;
 	
 	@OneToMany(mappedBy="courseId",cascade=CascadeType.ALL,orphanRemoval=true)

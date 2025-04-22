@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import com.cognizant.project.elearning.exception.AllException.*;
 
 @ControllerAdvice
@@ -24,17 +22,13 @@ public class GolbalExceptionHandler{
 		Map<String,Object> error=new HashMap<>();
 		error.put("status",String.valueOf(404)+" (Resource Not Found)");
 		error.put("message","The URL you are trying to access doesnt exist");
-	//error.put("path",ex.getRequestURL()+" this path doesnt exist");
-	
 		return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
 	}
-	
 	
 	@ExceptionHandler( UserNotExist.class)
 	public ResponseEntity<String> handleUserNotExist(UserNotExist ex){
 		return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	}
-	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
@@ -53,7 +47,6 @@ public class GolbalExceptionHandler{
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
-	
 	@ExceptionHandler(InstructorDetailNotFound.class)
 	public ResponseEntity<Map<String,String>> handleInstructorDetailNotFound(InstructorDetailNotFound ex){
 		Map<String, String> error = new HashMap<>();
@@ -61,7 +54,6 @@ public class GolbalExceptionHandler{
 		error.put("message", ex.getMessage());
 		return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
 	}
-	
 	
 	@ExceptionHandler(StudentDetailNotFound.class)
 	public ResponseEntity<Map<String,String>> handleStudentDetailNotFound(StudentDetailNotFound ex){
@@ -74,7 +66,7 @@ public class GolbalExceptionHandler{
 	
 	@ExceptionHandler(InvalidCourse.class)
 	public ResponseEntity<Map<String,String>> handleInvalidCourse(InvalidCourse ex){
-		Map<String,String> error=new HashMap();
+		Map<String,String> error=new HashMap<>();
 		error.put("error","Invalid Course");
 		error.put("message", ex.getMessage());
 		return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
@@ -90,10 +82,8 @@ public class GolbalExceptionHandler{
 		return new ResponseEntity<>("No such Assessment Conducted check assessment id properly",HttpStatus.OK);
 	}
 	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<String> handleException(){
-		return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+	@ExceptionHandler(TokenInvalid.class)
+	public ResponseEntity<String> TokenInvalid(){
+		return new ResponseEntity<>("InvalidToken check the token",HttpStatus.BAD_REQUEST);
 	}
-
-	
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.cognizant.project.elearning.entity.Course;
 import com.cognizant.project.elearning.entity.Enrollment;
 import com.cognizant.project.elearning.entity.Student;
+
 @Repository
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer> {
 

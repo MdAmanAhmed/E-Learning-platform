@@ -19,8 +19,6 @@ import com.cognizant.project.elearning.service.CourseService;
 @RequestMapping("/api/courses")
 public class CourseController {
 
-
-
     @Autowired
     CourseService courseService;
 
