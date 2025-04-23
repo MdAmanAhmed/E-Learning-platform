@@ -1,4 +1,4 @@
-/*package com.cognizant.project.elearning_platform;
+package com.cognizant.project.elearning;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class ElearningPlatformApplicationTests {
 	void contextLoads() {
 	}
 
-}*/
+}
