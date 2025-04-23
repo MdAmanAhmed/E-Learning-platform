@@ -102,6 +102,12 @@ public class GolbalExceptionHandler{
 		return new ResponseEntity<>(message,HttpStatus.FORBIDDEN);
 	}
 	
+	@ExceptionHandler(AccessRestricted.class)
+	public ResponseEntity<String> handleAccessRestricted(){
+		String message = "No access to delete the course";
+		return new ResponseEntity<>(message,HttpStatus.FORBIDDEN);
+	}
+	
 
 }
 

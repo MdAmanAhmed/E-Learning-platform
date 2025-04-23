@@ -24,8 +24,7 @@ public class Notification {
 	private LocalDateTime dateTime;
 
 	@ManyToMany
-	@JoinTable(
-	name = "notified_students",
+	@JoinTable(name = "notified_students",
 	joinColumns = @JoinColumn(name = "notification_id"),
 	inverseJoinColumns = @JoinColumn(name = "student_id")
 												)

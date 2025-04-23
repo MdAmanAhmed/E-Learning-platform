@@ -14,6 +14,7 @@ import com.cognizant.project.elearning.entity.Course;
 import com.cognizant.project.elearning.entity.Instructor;
 import com.cognizant.project.elearning.entity.Notification;
 import com.cognizant.project.elearning.entity.Student;
+import com.cognizant.project.elearning.exception.AccessRestricted;
 import com.cognizant.project.elearning.exception.AllException.InstructorDetailNotFound;
 import com.cognizant.project.elearning.exception.AllException.InvalidCourse;
 import com.cognizant.project.elearning.exception.AllException.StudentDetailNotFound;
@@ -90,7 +91,7 @@ public class CourseService {
 		Course course=courseRepository.findById(courseId).orElseThrow(()->
 						new InvalidCourse("Course with Id "+courseId+" not found."));
 		if(course.getInstructorId().getUserId()!=instructorId) {
-			return ("No access to delete with instructor Id :"+ instructorId);
+			throw new AccessRestricted();
 		}
 		courseRepository.delete(course);
 		return "course removed";
