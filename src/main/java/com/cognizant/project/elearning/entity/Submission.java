@@ -1,7 +1,10 @@
 package com.cognizant.project.elearning.entity;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+=======
+>>>>>>> 95b06771d3c09b52b491048255dfd219994f9c9f
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

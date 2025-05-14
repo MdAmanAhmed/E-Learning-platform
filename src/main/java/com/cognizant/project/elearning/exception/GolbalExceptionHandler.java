@@ -75,11 +75,13 @@ public class GolbalExceptionHandler{
 	
 	@ExceptionHandler(AlreadyEnrolled.class)
 	public ResponseEntity<String> handleAlreadyEnrolled(){
+
 		return new ResponseEntity<>("User already enrolled in that course",HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(AssessmentNotFound.class)
 	public ResponseEntity<String> assessmentNotFound(){
+
 		return new ResponseEntity<>("No such Assessment Conducted check assessment id properly",HttpStatus.NOT_FOUND);
 	}
 	

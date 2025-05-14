@@ -2,6 +2,10 @@ package com.cognizant.project.elearning.entity;
 
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 95b06771d3c09b52b491048255dfd219994f9c9f
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
