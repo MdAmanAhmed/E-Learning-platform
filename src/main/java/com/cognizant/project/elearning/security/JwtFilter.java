@@ -46,7 +46,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
                 response.getOutputStream().write(body.getBytes(StandardCharsets.UTF_8));
-            }
+            	
+           }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

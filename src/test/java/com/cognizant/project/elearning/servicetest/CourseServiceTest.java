@@ -134,7 +134,7 @@ public class CourseServiceTest {
         when(courseRepository.findByInstructorId(instructor)).thenReturn(courseList);
         when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseRequestDTO);
 
-        List<CourseRequestDTO> result = courseService.viewAllCourse(1);
+        List<CourseResponseDTO> result = courseService.viewAllCourse(1);
 
         assertEquals(1, result.size());
         assertEquals(courseRequestDTO, result.get(0));
@@ -156,7 +156,7 @@ public class CourseServiceTest {
         when(courseRepository.findAll()).thenReturn(courseList);
         when(modelMapper.map(course, CourseRequestDTO.class)).thenReturn(courseRequestDTO);
 
-        List<CourseRequestDTO> result = courseService.viewAllCourse();
+        List<CourseResponseDTO> result = courseService.viewAllCourse();
 
         assertEquals(1, result.size());
         assertEquals(courseRequestDTO, result.get(0));

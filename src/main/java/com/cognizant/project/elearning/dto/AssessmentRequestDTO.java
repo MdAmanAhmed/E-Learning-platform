@@ -6,11 +6,12 @@ import lombok.Data;
 
 @Data
 public class AssessmentRequestDTO {
-	private int assessmentId;
 	
 	@NotBlank
-	private String type;
+	private String question;
+	
 	@Min(1)
 	private int maxScore;
+	
 	
 }

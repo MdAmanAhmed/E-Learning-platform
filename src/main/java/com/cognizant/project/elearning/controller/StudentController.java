@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognizant.project.elearning.dto.AssessmentResponseDTO;
 import com.cognizant.project.elearning.dto.CourseResponseDTO;
 import com.cognizant.project.elearning.dto.EnrollmentResponseDTO;
 import com.cognizant.project.elearning.dto.StudentResponseDTO;
+import com.cognizant.project.elearning.dto.SubmissionRequestDTO;
 import com.cognizant.project.elearning.dto.SubmissionResponseDTO;
 import com.cognizant.project.elearning.dto.UpdateStudentDetailsDTO;
+import com.cognizant.project.elearning.entity.Assessment;
+import com.cognizant.project.elearning.service.AssessmentService;
 import com.cognizant.project.elearning.service.CourseService;
 import com.cognizant.project.elearning.service.EnrollmentService;
 import com.cognizant.project.elearning.service.StudentService;
@@ -29,6 +33,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/students")
+@CrossOrigin(origins="http://localhost:3000")
 public class StudentController {
 
 
@@ -43,6 +48,9 @@ public class StudentController {
 
     @Autowired
     CourseService courseService;
+    
+    @Autowired
+    AssessmentService assessmentService;
 
 
     @PreAuthorize("#studentId==authentication.principal.id")
@@ -55,9 +63,9 @@ public class StudentController {
 
     @PreAuthorize("#studentId==authentication.principal.id")
     @PostMapping("/{studentId}/submitAssessments/{assessmentId}")
-    public ResponseEntity<SubmissionResponseDTO> submitAssessment(@PathVariable int studentId, @PathVariable int assessmentId) {
+    public ResponseEntity<SubmissionResponseDTO> submitAssessment(@PathVariable int studentId, @PathVariable int assessmentId, @RequestBody SubmissionRequestDTO submissionDTO) {
 
-        ResponseEntity<SubmissionResponseDTO> response = new ResponseEntity<>(submissionService.submitAssessment(studentId, assessmentId), HttpStatus.OK);
+        ResponseEntity<SubmissionResponseDTO> response = new ResponseEntity<>(submissionService.submitAssessment(studentId, assessmentId,submissionDTO), HttpStatus.OK);
 
         return response;
     }
@@ -86,5 +94,16 @@ public class StudentController {
         StudentResponseDTO updatedStudent = studentService.updateStudentDetails(studentId, request.getCollege(),
                 request.getAge());
         return ResponseEntity.ok(updatedStudent);
+    }
+    
+    @GetMapping("course/{courseId}")
+    public ResponseEntity<List<AssessmentResponseDTO>> viewAllAssessments(@PathVariable int courseId){ 
+    	return new ResponseEntity<>(assessmentService.viewAllAssessments(courseId),HttpStatus.OK);
+    
+    }
+    
+    @GetMapping("submission/{submissionId}")
+    public ResponseEntity<SubmissionResponseDTO> viewScore(@PathVariable int submissionId){
+    	return new ResponseEntity<>(submissionService.viewScore(submissionId),HttpStatus.OK);
     }
 }

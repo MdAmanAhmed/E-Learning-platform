@@ -1,6 +1,7 @@
 package com.cognizant.project.elearning.entity;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,5 +22,8 @@ public class Submission {
 	@ManyToOne
 	@JoinColumn(name="studentId")
 	private Student studentId;
-	private int score;
+	private int currentScore;
+	private String answer;
+	
+
 }

@@ -1,9 +1,12 @@
 package com.cognizant.project.elearning.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,15 +21,18 @@ import com.cognizant.project.elearning.dto.AssessmentResponseDTO;
 import com.cognizant.project.elearning.dto.CourseRequestDTO;
 import com.cognizant.project.elearning.dto.CourseResponseDTO;
 import com.cognizant.project.elearning.dto.InstructorResponseDTO;
+import com.cognizant.project.elearning.dto.SubmissionResponseDTO;
 import com.cognizant.project.elearning.service.AssessmentService;
 import com.cognizant.project.elearning.service.CourseService;
 import com.cognizant.project.elearning.service.InstructorService;
+import com.cognizant.project.elearning.service.SubmissionService;
 
 import jakarta.validation.Valid;
 
 
 @RestController
 @RequestMapping("/api/instructors")
+@CrossOrigin(origins="http://localhost:3000")
 public class InstructorController {
 
 
@@ -38,6 +44,9 @@ public class InstructorController {
 
     @Autowired
     AssessmentService assessmentService;
+    
+    @Autowired
+    SubmissionService submissionService;
 
     @PreAuthorize("#instructorId==authentication.principal.id")
     @PostMapping("/{instructorId}/courses")
@@ -49,8 +58,7 @@ public class InstructorController {
     @PreAuthorize("#instructorId==authentication.principal.id")
     @PostMapping("/{instructorId}/courses/{courseId}/assessments")
     public ResponseEntity<AssessmentResponseDTO> createAssessment(@Valid @RequestBody AssessmentRequestDTO assessmentRequestDTO,@PathVariable("instructorId") int instructorId, @PathVariable("courseId") int courseId){
-        System.out.println("this is came in the controller");
-    	
+    	System.out.println("assessment cration");
         ResponseEntity<AssessmentResponseDTO> response = new ResponseEntity<>(assessmentService.createAssessment(assessmentRequestDTO, courseId), HttpStatus.OK);
         return response;
     }
@@ -82,4 +90,37 @@ public class InstructorController {
         ResponseEntity<InstructorResponseDTO> response = new ResponseEntity<>(instructorService.viewInstructor(instructorId), HttpStatus.OK);
         return response;
     }
+    @PreAuthorize("#instructorId==authentication.principal.id")
+    @GetMapping("/{instructorId}/course")
+    public ResponseEntity<List<CourseResponseDTO>> viewAllCourse(@PathVariable int instructorId) {
+
+        ResponseEntity<List<CourseResponseDTO>> response = new ResponseEntity<>(courseService.viewAllCourse(instructorId), HttpStatus.OK);
+        return response;
+    }
+    
+//    @PutMapping("{instructorId}/student/{studentId}/assessment/{assessmentId}/grade/{grade}")
+    @PutMapping("submission/{submissionId}/grade/{grade}")
+    public void gradeAssessment(@PathVariable int submissionId,@PathVariable int grade){
+    	assessmentService.gradeAssessment(submissionId,grade);
+    }
+    
+    @GetMapping("course/{courseId}")
+    public ResponseEntity<List<AssessmentResponseDTO>> viewAllAssessments(@PathVariable int courseId){ 
+    	return new ResponseEntity<>(assessmentService.viewAllAssessments(courseId),HttpStatus.OK);
+    
+    }
+    @GetMapping("assessment/{assessmentId}")
+    public ResponseEntity<List<SubmissionResponseDTO>> viewAllSubmissions(@PathVariable int assessmentId){ 
+    	return new ResponseEntity<>(assessmentService.viewAllSubmissions(assessmentId),HttpStatus.OK);
+    
+    }
+    
+    @GetMapping("assessment/{assessmentId}/submission/{submissionId}")
+    public ResponseEntity<SubmissionResponseDTO> viewAnswer(@PathVariable int assessmentId,@PathVariable int submissionId){ 
+    	return new ResponseEntity<>(submissionService.viewAnswer(assessmentId,submissionId),HttpStatus.OK);
+    
+    }
+    
+    
+    
 }

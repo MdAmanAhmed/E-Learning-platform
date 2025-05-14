@@ -6,10 +6,10 @@ import lombok.Data;
 public class SubmissionResponseDTO {
 	private int submissionId;
 	private int assessmentId;
-	private int studentId;
-    private String type;
+    private String question;
 	private int maxScore;
-	private int courseId;
 	private String title;
-	private String instructorName;
+	private String answer;
+	private String currentScore;
+	private int studentId;
 }

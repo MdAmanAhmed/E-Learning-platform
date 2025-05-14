@@ -21,12 +21,14 @@ public class Assessment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int assessmentId;
 	
-	private String type;
-	
+	private String question;
+		
 	private int maxScore;
-	
+
+
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="courseId")
+	
 	private Course courseId;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true,mappedBy="assessmentId")

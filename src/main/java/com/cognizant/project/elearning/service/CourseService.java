@@ -97,22 +97,22 @@ public class CourseService {
 		return "course removed";
 	}
 	
-	public List<CourseRequestDTO> viewAllCourse(int instructorId){
+	public List<CourseResponseDTO> viewAllCourse(int instructorId){
 		Instructor instructor=instructorRepository.findById(instructorId).orElseThrow(()->
 							new InstructorDetailNotFound("Instructor with Id "+instructorId+" not found."));
 		List<Course> courseList=courseRepository.findByInstructorId(instructor);
-		ArrayList<CourseRequestDTO> result=new ArrayList<>();
+		ArrayList<CourseResponseDTO> result=new ArrayList<>();
 		for(Course obj:courseList) {
-			result.add(modelMapper.map(obj, CourseRequestDTO.class));
+			result.add(modelMapper.map(obj, CourseResponseDTO.class));
 		}
 		return result;
 	}
 
-	public List<CourseRequestDTO> viewAllCourse(){
+	public List<CourseResponseDTO> viewAllCourse(){
 		List<Course> courseList=courseRepository.findAll();
-		ArrayList<CourseRequestDTO> result=new ArrayList<>();
+		ArrayList<CourseResponseDTO> result=new ArrayList<>();
 		for(Course obj:courseList) {
-			result.add(modelMapper.map(obj, CourseRequestDTO.class));
+			result.add(modelMapper.map(obj, CourseResponseDTO.class));
 		}
 		return result;
 	}
